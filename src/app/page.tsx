@@ -3,6 +3,9 @@
 import { useState } from "react";
 import { SearchBar } from "@/components/SearchBar";
 import { DigResults } from "@/components/DigResults";
+import { UseCases } from "@/components/landing/UseCases";
+import { McpConnect } from "@/components/landing/McpConnect";
+import { HowItWorks } from "@/components/landing/HowItWorks";
 import type { DigResult } from "@/lib/types";
 
 const EXAMPLES = ["Dyson V15", "Notion", "Peloton Bike+"];
@@ -26,6 +29,7 @@ export default function Home() {
       const data = await res.json();
       if (!res.ok) throw new Error(data?.error ?? "Something went wrong.");
       setResult(data as DigResult);
+      window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (e) {
       setError(e instanceof Error ? e.message : "Something went wrong.");
     } finally {
@@ -35,35 +39,49 @@ export default function Home() {
 
   if (!result) {
     return (
-      <main className="bg-beam flex min-h-screen flex-col items-center justify-center px-4 text-center">
-        <Wordmark />
-        <p className="mt-4 max-w-md text-lg leading-relaxed text-muted">
-          See the reviews they bury. We dig past page-one marketing to the
-          honest, buried takes real people leave — with sources.
-        </p>
-        <div className="mt-8 w-full max-w-xl">
-          <SearchBar onSearch={runDig} loading={loading} />
-        </div>
-        {loading ? (
-          <p className="mt-6 animate-pulse font-mono text-sm text-accent">
-            Digging through the long tail…
+      <main className="bg-beam">
+        <section className="flex min-h-[92vh] flex-col items-center justify-center px-4 text-center">
+          <Wordmark />
+          <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted">
+            Reviews are usually hidden.{" "}
+            <span className="text-cream">Not here.</span> We dig past page-one
+            marketing to the honest, buried takes real people leave — with sources.
           </p>
-        ) : error ? (
-          <p className="mt-6 text-sm text-negative">{error}</p>
-        ) : (
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-2 text-sm">
-            <span className="text-muted">Try</span>
-            {EXAMPLES.map((ex) => (
-              <button
-                key={ex}
-                onClick={() => runDig(ex)}
-                className="rounded-full border border-line px-3 py-1 text-cream/80 transition-colors hover:border-accent/50 hover:text-accent"
-              >
-                {ex}
-              </button>
-            ))}
+          <div className="mt-8 w-full max-w-xl">
+            <SearchBar onSearch={runDig} loading={loading} />
           </div>
-        )}
+          {loading ? (
+            <p className="mt-6 animate-pulse font-mono text-sm text-accent">
+              Digging through the long tail…
+            </p>
+          ) : error ? (
+            <p className="mt-6 text-sm text-negative">{error}</p>
+          ) : (
+            <div className="mt-6 flex flex-wrap items-center justify-center gap-2 text-sm">
+              <span className="text-muted">Try</span>
+              {EXAMPLES.map((ex) => (
+                <button
+                  key={ex}
+                  onClick={() => runDig(ex)}
+                  className="rounded-full border border-line px-3 py-1 text-cream/80 transition-colors hover:border-accent/50 hover:text-accent"
+                >
+                  {ex}
+                </button>
+              ))}
+            </div>
+          )}
+          <p className="mt-12 text-xs uppercase tracking-widest text-muted/60">
+            Scroll to see more ↓
+          </p>
+        </section>
+
+        <UseCases onTry={runDig} />
+        <McpConnect />
+        <HowItWorks />
+
+        <footer className="border-t border-line py-8 text-center text-xs text-muted">
+          hidden.reviews — built with Nimble + Claude · DWNY 2026
+        </footer>
       </main>
     );
   }
@@ -113,7 +131,7 @@ function Wordmark({ small = false }: { small?: boolean }) {
       className={
         small
           ? "text-lg font-semibold tracking-tight text-cream"
-          : "text-4xl font-semibold tracking-tight text-cream sm:text-5xl"
+          : "text-5xl font-semibold tracking-tight text-cream sm:text-6xl"
       }
     >
       hidden<span className="text-accent">.</span>reviews
