@@ -1,65 +1,122 @@
-import Image from "next/image";
+"use client";
+
+import { useState } from "react";
+import { SearchBar } from "@/components/SearchBar";
+import { DigResults } from "@/components/DigResults";
+import type { DigResult } from "@/lib/types";
+
+const EXAMPLES = ["Dyson V15", "Notion", "Peloton Bike+"];
 
 export default function Home() {
+  const [result, setResult] = useState<DigResult | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [activeQuery, setActiveQuery] = useState("");
+
+  async function runDig(query: string) {
+    setLoading(true);
+    setError(null);
+    setActiveQuery(query);
+    try {
+      const res = await fetch("/api/dig", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ query }),
+      });
+      const data = await res.json();
+      if (!res.ok) throw new Error(data?.error ?? "Something went wrong.");
+      setResult(data as DigResult);
+    } catch (e) {
+      setError(e instanceof Error ? e.message : "Something went wrong.");
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  if (!result) {
+    return (
+      <main className="bg-beam flex min-h-screen flex-col items-center justify-center px-4 text-center">
+        <Wordmark />
+        <p className="mt-4 max-w-md text-lg leading-relaxed text-muted">
+          See the reviews they bury. We dig past page-one marketing to the
+          honest, buried takes real people leave — with sources.
+        </p>
+        <div className="mt-8 w-full max-w-xl">
+          <SearchBar onSearch={runDig} loading={loading} />
+        </div>
+        {loading ? (
+          <p className="mt-6 animate-pulse font-mono text-sm text-accent">
+            Digging through the long tail…
+          </p>
+        ) : error ? (
+          <p className="mt-6 text-sm text-negative">{error}</p>
+        ) : (
+          <div className="mt-6 flex flex-wrap items-center justify-center gap-2 text-sm">
+            <span className="text-muted">Try</span>
+            {EXAMPLES.map((ex) => (
+              <button
+                key={ex}
+                onClick={() => runDig(ex)}
+                className="rounded-full border border-line px-3 py-1 text-cream/80 transition-colors hover:border-accent/50 hover:text-accent"
+              >
+                {ex}
+              </button>
+            ))}
+          </div>
+        )}
+      </main>
+    );
+  }
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
+    <main className="min-h-screen">
+      <div className="sticky top-0 z-10 border-b border-line bg-ink/80 backdrop-blur">
+        <div className="mx-auto flex max-w-3xl items-center gap-4 px-4 py-3">
+          <button
+            onClick={() => {
+              setResult(null);
+              setError(null);
+            }}
+            className="shrink-0"
+            aria-label="New search"
+          >
+            <Wordmark small />
+          </button>
+          <div className="flex-1">
+            <SearchBar
+              onSearch={runDig}
+              loading={loading}
+              initialQuery={activeQuery}
+            />
+          </div>
+        </div>
+      </div>
+
+      {error && (
+        <div className="mx-auto mt-4 max-w-3xl px-4">
+          <p className="rounded-lg border border-negative/30 bg-negative/10 px-4 py-2 text-sm text-negative">
+            {error}
           </p>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+      )}
+
+      <div className="px-4 pt-8">
+        <DigResults result={result} />
+      </div>
+    </main>
+  );
+}
+
+function Wordmark({ small = false }: { small?: boolean }) {
+  return (
+    <span
+      className={
+        small
+          ? "text-lg font-semibold tracking-tight text-cream"
+          : "text-4xl font-semibold tracking-tight text-cream sm:text-5xl"
+      }
+    >
+      hidden<span className="text-accent">.</span>reviews
+    </span>
   );
 }
