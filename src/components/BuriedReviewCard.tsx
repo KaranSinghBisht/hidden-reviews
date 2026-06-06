@@ -13,7 +13,9 @@ export function BuriedReviewCard({ review }: { review: BuriedReview }) {
             className={`h-2 w-2 rounded-full ${sentimentMeta[review.sentiment].dot}`}
           />
           <span className="font-medium text-cream">{review.sourceName}</span>
-          {review.author && <span className="text-muted">· {review.author}</span>}
+          {review.author && (
+            <span className="text-muted">· {review.author}</span>
+          )}
         </div>
         <a
           href={review.url}
@@ -36,9 +38,14 @@ export function BuriedReviewCard({ review }: { review: BuriedReview }) {
             {buriedReasonLabel(reason)}
           </Badge>
         ))}
-        {review.date && (
-          <span className="ml-auto text-xs text-muted">{review.date}</span>
-        )}
+        <span className="ml-auto flex items-center gap-3 text-xs text-muted">
+          {typeof review.rank === "number" && (
+            <span className="text-accent/80">
+              ↓ buried at result #{review.rank}
+            </span>
+          )}
+          {review.date && <span>{review.date}</span>}
+        </span>
       </div>
     </Card>
   );

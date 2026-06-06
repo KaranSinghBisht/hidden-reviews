@@ -29,13 +29,25 @@ export function DigResults({ result }: { result: DigResult }) {
               sentiment={result.overallSentiment}
             />
             <div className="flex-1">
-              <div className="flex items-center gap-2">
-                <span className={`h-2 w-2 rounded-full ${s.dot}`} />
-                <span
-                  className={`text-xs font-medium uppercase tracking-widest ${s.text}`}
-                >
-                  {s.label} consensus
-                </span>
+              <div className="flex items-center justify-between gap-2">
+                <div className="flex items-center gap-2">
+                  <span className={`h-2 w-2 rounded-full ${s.dot}`} />
+                  <span
+                    className={`text-xs font-medium uppercase tracking-widest ${s.text}`}
+                  >
+                    {s.label} consensus
+                  </span>
+                </div>
+                {result.usedMock ? (
+                  <span className="rounded-full bg-accent/15 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-accent">
+                    Demo data
+                  </span>
+                ) : (
+                  <span className="inline-flex items-center gap-1 rounded-full bg-positive/15 px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-widest text-positive">
+                    <span className="h-1.5 w-1.5 rounded-full bg-positive" />
+                    Live · Nimble
+                  </span>
+                )}
               </div>
               <h1 className="mt-2 text-2xl font-semibold tracking-tight text-cream">
                 {result.query}
@@ -68,7 +80,9 @@ export function DigResults({ result }: { result: DigResult }) {
 
       {result.buriedReviews.length > 0 && (
         <section>
-          <SectionTitle>Buried reviews · {result.buriedReviews.length}</SectionTitle>
+          <SectionTitle>
+            Buried reviews · {result.buriedReviews.length}
+          </SectionTitle>
           <div className="space-y-3">
             {result.buriedReviews.map((review, i) => (
               <BuriedReviewCard key={i} review={review} />
