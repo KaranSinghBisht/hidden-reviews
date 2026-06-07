@@ -1,284 +1,578 @@
 {
-  "notion": {
-    "query": "Notion",
-    "verdict": "Notion is genuinely powerful for docs and wikis, earning loyal fans and 100M users. But beneath the hype lies a pattern of reliability issues, poor customer support, and billing complaints that marketing glosses over. Great if it works for you; risky to depend on for critical workflows.",
+  "dune part two": {
+    "query": "Dune Part Two",
+    "verdict": "Dune: Part Two is visually stunning and narratively ambitious, earning its praise \u2014 but candid viewers note rushed pacing, sacrificed characterisation, and a toned-down weirdness that fans of Herbert's novel will miss. A great blockbuster; a flawed adaptation.",
     "overallSentiment": "mixed",
-    "trustScore": 52,
+    "trustScore": 74,
     "hiddenInsights": [
       {
-        "point": "Notion's Trustpilot score sits between 1.5\u20132.5 stars, driven largely by billing errors, login failures, and unresponsive support",
-        "supportCount": 4,
-        "sentiment": "negative"
-      },
-      {
-        "point": "Frequent slowdowns and outages make it unreliable for teams depending on it daily",
+        "point": "Characterisation and motivation are thinned out by the film's rapid pace through a dense story",
         "supportCount": 3,
         "sentiment": "negative"
       },
       {
-        "point": "High learnability barrier \u2014 unintuitive UX causes many users to abandon it after initial enthusiasm",
-        "supportCount": 1,
+        "point": "The film deliberately downplays Herbert's stranger, more psychedelic elements, which some reviewers see as a creative loss",
+        "supportCount": 2,
         "sentiment": "negative"
       },
       {
-        "point": "For knowledge bases and wikis specifically, it remains best-in-class with strong G2 ratings",
-        "supportCount": 1,
+        "point": "Austin Butler's Feyd-Rautha is a genuine scene-stealer, widely praised even by critics otherwise lukewarm on the film",
+        "supportCount": 2,
+        "sentiment": "positive"
+      },
+      {
+        "point": "Book readers note the adaptation of Paul's tragedy and Stilgar's fanaticism is handled with surprising fidelity",
+        "supportCount": 2,
         "sentiment": "positive"
       }
     ],
     "buriedReviews": [
       {
-        "quote": "Notion falls short in learnability and unintuitive design \u2014 enough to make users stop entirely",
-        "sourceKind": "blog",
-        "sourceName": "uxplanet.org",
-        "url": "https://uxplanet.org/why-i-stopped-using-notion-an-honest-ux-review-ebf03e268a01",
-        "sentiment": "negative",
-        "buriedReasons": [
-          "low_search_rank",
-          "contrarian"
-        ],
-        "rank": 5
-      },
-      {
-        "quote": "Billing errors and login failures are the top complaints; Notion holds a 1.5-star rating across roughly 200 reviews",
-        "sourceKind": "blog",
-        "sourceName": "19pine.ai",
-        "url": "https://www.19pine.ai/customer-service/software-and-app-services/how-to-contact-notion-customer-service",
-        "sentiment": "negative",
-        "buriedReasons": [
-          "low_search_rank",
-          "niche_source"
-        ],
-        "rank": 10
-      },
-      {
-        "quote": "40% of users give Notion 1 star, with many complaints highlighting similar issues",
-        "sourceKind": "blog",
-        "sourceName": "facebook.com",
-        "url": "https://www.facebook.com/groups/notionbusiness/posts/1666903587522224/",
+        "quote": "Pacing is so rushed and frankly messy; the texture of the books is completely lost.",
+        "sourceKind": "reddit",
+        "sourceName": "reddit.com",
+        "url": "https://www.reddit.com/r/TrueFilm/comments/1b6j3tu/dune_part_two_is_a_mess/",
         "sentiment": "negative",
         "buriedReasons": [
           "candid_community",
+          "contrarian"
+        ]
+      },
+      {
+        "quote": "Too long, too loud; sound design was complex but poorly tied to the narrative.",
+        "sourceKind": "reddit",
+        "sourceName": "reddit.com",
+        "url": "https://www.reddit.com/r/moviecritic/comments/1b3yguf/despite_all_the_ravings_dune_2_was_bad_spoilers/",
+        "sentiment": "negative",
+        "buriedReasons": [
+          "candid_community",
+          "contrarian",
+          "downvoted_or_old"
+        ]
+      },
+      {
+        "quote": "A rapid pace gets through a lot of story while maybe sacrificing some characterization and motivation.",
+        "sourceKind": "blog",
+        "sourceName": "letterboxd.com",
+        "url": "https://letterboxd.com/ganderson19/film/dune-part-two/",
+        "sentiment": "mixed",
+        "buriedReasons": [
+          "niche_source",
           "low_search_rank"
-        ],
-        "rank": 3
+        ]
+      },
+      {
+        "quote": "Lack of weirdness keeps me from a five-star \u2014 when it does pop up it feels confusing and out of place.",
+        "sourceKind": "blog",
+        "sourceName": "letterboxd.com",
+        "url": "https://letterboxd.com/timbrayton/film/dune-part-two/",
+        "sentiment": "mixed",
+        "buriedReasons": [
+          "niche_source",
+          "low_search_rank"
+        ]
       }
     ],
     "sentimentGaps": [
       {
-        "marketingClaim": "An all-in-one workspace trusted by 100M users",
-        "realityFinding": "Reliability and outages undermine daily trust; customer support is widely criticised as inadequate",
-        "gapScore": 72
+        "marketingClaim": "An epic, complete cinematic experience praised near-universally",
+        "realityFinding": "A vocal minority of book fans and film critics find it rushed, noisy, and stripped of Herbert's philosophical depth",
+        "gapScore": 62
       },
       {
-        "marketingClaim": "Intuitive, flexible tool for everyone",
-        "realityFinding": "UX is steep and unintuitive enough that users actively write about quitting it",
-        "gapScore": 65
-      },
-      {
-        "marketingClaim": "Seamless billing and account management",
-        "realityFinding": "Billing errors are among the top complaints on Trustpilot with little resolution",
-        "gapScore": 70
+        "marketingClaim": "A faithful and immersive adaptation of the beloved novel",
+        "realityFinding": "Key character arcs and the novel's stranger, weirder texture are significantly compressed or removed",
+        "gapScore": 58
       }
     ],
-    "sourcesScanned": 12,
-    "generatedAt": "2026-06-07T12:47:52.626Z",
+    "sourcesScanned": 36,
+    "searchesRun": 5,
+    "agentSteps": [
+      {
+        "label": "Planning research angles",
+        "detail": "Letterboxd audience reviews \u00b7 Reddit fan & audience discussion \u00b7 Dune fan community deep dive \u00b7 General audience vs critic sentiment blogs \u00b7 YouTube & pop culture commentary",
+        "status": "done"
+      },
+      {
+        "label": "Searching the live web",
+        "detail": "36 candid sources from 5 searches",
+        "status": "done"
+      },
+      {
+        "label": "Reading sources & writing the honest verdict",
+        "detail": "14 sources",
+        "status": "done"
+      }
+    ],
+    "generatedAt": "2026-06-07T13:48:21.956Z",
     "usedMock": false
   },
-  "peloton bike+": {
-    "query": "Peloton Bike+",
-    "verdict": "The Bike+ delivers genuinely great classes and a premium ride, but long-term owners flag aging tech, sloppy content curation, and serious customer service failures. At $2,500 plus subscription fees, many find the original Bike sufficient and the upgrade hard to justify.",
+  "dyson v15": {
+    "query": "Dyson V15",
+    "verdict": "The Dyson V15 genuinely impresses most users \u2014 laser detection and suction on carpet are real highlights \u2014 but durability concerns, poor customer service, and surprisingly weak suction complaints from some users suggest the premium price doesn't always guarantee a premium experience.",
     "overallSentiment": "mixed",
-    "trustScore": 58,
+    "trustScore": 62,
     "hiddenInsights": [
       {
-        "point": "After 5 years, owners report the technology feels outdated and Peloton forces subscription dependency with limited offline options",
+        "point": "Some users find the laser reveals dirt the V15 can't fully pick up, undermining its flagship feature",
         "supportCount": 1,
         "sentiment": "negative"
       },
       {
-        "point": "Many users find the original Bike offers near-identical class quality, making the Bike+ premium hard to justify",
-        "supportCount": 2,
+        "point": "Maneuverability is slightly worse than smaller models like the V12 due to increased weight",
+        "supportCount": 1,
         "sentiment": "negative"
       },
       {
-        "point": "Customer service is widely described as unresponsive and incompetent, even when hardware fails quickly",
+        "point": "Dyson customer service is widely criticized across multiple countries \u2014 long waits, poor refund processes",
         "supportCount": 3,
         "sentiment": "negative"
       },
       {
-        "point": "The Bike+ changes over the original were seen by some owners as unnecessary or superficial rather than meaningful upgrades",
+        "point": "For many users the V15 genuinely reignited enjoyment of cleaning, with laser and suction praised on hard floors",
+        "supportCount": 3,
+        "sentiment": "positive"
+      }
+    ],
+    "buriedReviews": [
+      {
+        "quote": "It has a light that makes all the dirt show, but isn't powerful enough to pick it all up. I was really surprised at how weak the suction is.",
+        "sourceKind": "reddit",
+        "sourceName": "reddit.com",
+        "url": "https://www.reddit.com/r/VacuumCleaners/comments/1q0nx1v/dyson_v15_cordless_first_impressions/",
+        "sentiment": "negative",
+        "buriedReasons": [
+          "candid_community",
+          "contrarian"
+        ]
+      },
+      {
+        "quote": "IMO Dyson vacuums are not well made and do a poor job of cleaning.",
+        "sourceKind": "reddit",
+        "sourceName": "reddit.com",
+        "url": "https://www.reddit.com/r/VacuumCleaners/comments/z4sao4/is_the_dyson_v15_worth_it/",
+        "sentiment": "negative",
+        "buriedReasons": [
+          "candid_community",
+          "contrarian"
+        ]
+      },
+      {
+        "quote": "3 weeks waiting time to get stickers to send a product. Over a month to get refund still waiting.",
+        "sourceKind": "trustpilot",
+        "sourceName": "trustpilot.com",
+        "url": "https://www.trustpilot.com/review/dyson.no?page=2",
+        "sentiment": "negative",
+        "buriedReasons": [
+          "niche_source",
+          "low_search_rank"
+        ]
+      },
+      {
+        "quote": "Due to the slight increase in weight and overall size, I do find it a little harder to maneuver.",
+        "sourceKind": "reddit",
+        "sourceName": "reddit.com",
+        "url": "https://www.reddit.com/r/VacuumCleaners/comments/1h0pgnn/dyson_v12_vs_v15_my_thoughts/",
+        "sentiment": "mixed",
+        "buriedReasons": [
+          "candid_community",
+          "low_search_rank"
+        ]
+      }
+    ],
+    "sentimentGaps": [
+      {
+        "marketingClaim": "Laser detection reveals and eliminates hidden dirt",
+        "realityFinding": "The laser does reveal dirt effectively, but some users report suction isn't strong enough to actually collect it all",
+        "gapScore": 65
+      },
+      {
+        "marketingClaim": "Premium build quality justifying the high price",
+        "realityFinding": "Multiple Trustpilot reviewers across regions report product defects and deeply frustrating after-sales support",
+        "gapScore": 70
+      },
+      {
+        "marketingClaim": "Best-in-class cordless vacuum performance",
+        "realityFinding": "Some r/VacuumCleaners users consider it overrated versus cheaper alternatives with better reliability",
+        "gapScore": 45
+      }
+    ],
+    "sourcesScanned": 36,
+    "searchesRun": 5,
+    "agentSteps": [
+      {
+        "label": "Planning research angles",
+        "detail": "Reddit candid owner discussions \u00b7 Trustpilot & Sitejabber customer reviews \u00b7 Long-term ownership blog reviews \u00b7 Vacuum enthusiast community opinions \u00b7 Reliability & common issues forums",
+        "status": "done"
+      },
+      {
+        "label": "Searching the live web",
+        "detail": "36 candid sources from 5 searches",
+        "status": "done"
+      },
+      {
+        "label": "Reading sources & writing the honest verdict",
+        "detail": "14 sources",
+        "status": "done"
+      }
+    ],
+    "generatedAt": "2026-06-07T13:46:51.402Z",
+    "usedMock": false
+  },
+  "joe's pizza nyc": {
+    "query": "Joe's Pizza NYC",
+    "verdict": "Joe's Pizza genuinely earns its reputation \u2014 Reddit's candid pizza community consistently backs the hype. It's a reliable, no-frills NYC classic, not the city's most adventurous slice, but arguably its most consistent. Tourists and locals alike agree: worth visiting, especially the original Carmine St location.",
+    "overallSentiment": "positive",
+    "trustScore": 84,
+    "hiddenInsights": [
+      {
+        "point": "It's celebrated as a benchmark, not necessarily 'the best' \u2014 the community consensus is reliable consistency over wow-factor",
+        "supportCount": 3,
+        "sentiment": "mixed"
+      },
+      {
+        "point": "Slight attitude from staff and a no-frills, slightly dirty environment are part of the experience \u2014 not polished hospitality",
+        "supportCount": 1,
+        "sentiment": "mixed"
+      },
+      {
+        "point": "Artisan and coal-oven alternatives (Prince St, Table 87) outshine Joe's for those seeking something beyond the classic",
+        "supportCount": 2,
+        "sentiment": "mixed"
+      },
+      {
+        "point": "Prices sit around $4.50\u2013$6 per slice and $30 a pie \u2014 fair but no longer cheap by traditional NYC street-slice standards",
+        "supportCount": 2,
+        "sentiment": "negative"
+      }
+    ],
+    "buriedReviews": [
+      {
+        "quote": "Quintessential benchmark NYC slice \u2014 reliable, quick, consistent. You'll know what you get.",
+        "sourceKind": "reddit",
+        "sourceName": "reddit.com",
+        "url": "https://www.reddit.com/r/FoodNYC/comments/1myxuq5/clarifying_things_on_joes/",
+        "sentiment": "mixed",
+        "buriedReasons": [
+          "candid_community"
+        ]
+      },
+      {
+        "quote": "No one's saying Joe's is 'the best,' but its cheese slice is undeniable \u2014 cheese, sauce, and crust as a single entity.",
+        "sourceKind": "reddit",
+        "sourceName": "reddit.com",
+        "url": "https://www.reddit.com/r/FoodNYC/comments/16bayze/why_is_joes_pizza_so_good/",
+        "sentiment": "mixed",
+        "buriedReasons": [
+          "candid_community"
+        ]
+      },
+      {
+        "quote": "A little bit dirty, a little bit of attitude \u2014 everything was just right.",
+        "sourceKind": "reddit",
+        "sourceName": "reddit.com",
+        "url": "https://www.reddit.com/r/Pizza/comments/1eb7yyo/joes_pizza_on_carmine_when_simple_is_best/",
+        "sentiment": "mixed",
+        "buriedReasons": [
+          "candid_community",
+          "contrarian"
+        ]
+      },
+      {
+        "quote": "Reviewer accidentally called it a contender for Boston's best slice \u2014 suggesting even fans can be flustered by familiarity bias.",
+        "sourceKind": "reddit",
+        "sourceName": "reddit.com",
+        "url": "https://www.reddit.com/r/Pizza/comments/185gaox/joes_pizza_greenwich_village_nyc/",
+        "sentiment": "mixed",
+        "buriedReasons": [
+          "candid_community",
+          "contrarian"
+        ]
+      }
+    ],
+    "sentimentGaps": [
+      {
+        "marketingClaim": "Iconic, world-famous NYC pizza destination",
+        "realityFinding": "Beloved for consistency and simplicity, but regularly compared unfavourably to artisan Brooklyn spots for those seeking peak quality",
+        "gapScore": 30
+      },
+      {
+        "marketingClaim": "The definitive New York slice",
+        "realityFinding": "Multiple locations of varying quality exist; the Carmine St original is the true benchmark \u2014 other branches may not replicate the experience equally",
+        "gapScore": 40
+      },
+      {
+        "marketingClaim": "Affordable classic street food",
+        "realityFinding": "At $4.50\u2013$6 a slice and $30 a pie, it's mid-range for NYC, not the cheap street slice it's historically romanticised as",
+        "gapScore": 35
+      }
+    ],
+    "sourcesScanned": 35,
+    "searchesRun": 5,
+    "agentSteps": [
+      {
+        "label": "Planning research angles",
+        "detail": "Reddit candid opinions \u00b7 Yelp customer reviews \u00b7 Local blog and food writer write-ups \u00b7 Google Maps and TripAdvisor visitor experiences \u00b7 NYC food community and forum discussions",
+        "status": "done"
+      },
+      {
+        "label": "Searching the live web",
+        "detail": "35 candid sources from 5 searches",
+        "status": "done"
+      },
+      {
+        "label": "Reading sources & writing the honest verdict",
+        "detail": "14 sources",
+        "status": "done"
+      }
+    ],
+    "generatedAt": "2026-06-07T13:48:02.018Z",
+    "usedMock": false
+  },
+  "notion": {
+    "query": "Notion",
+    "verdict": "Notion is a genuinely powerful, flexible tool for notes and databases, but real users report slow performance, chronic over-complexity, and a disappointing AI add-on. Great for wikis and structured projects; often overkill for simple productivity needs.",
+    "overallSentiment": "mixed",
+    "trustScore": 62,
+    "hiddenInsights": [
+      {
+        "point": "Many users build elaborate dashboards they never actually use \u2014 aesthetic over function is a widespread trap",
+        "supportCount": 3,
+        "sentiment": "negative"
+      },
+      {
+        "point": "Notion works well as a team wiki or Confluence replacement, but struggles as an all-in-one life OS",
+        "supportCount": 2,
+        "sentiment": "mixed"
+      },
+      {
+        "point": "Reliability is a genuine concern \u2014 slowness and downtime make it risky to depend on professionally",
+        "supportCount": 2,
+        "sentiment": "negative"
+      },
+      {
+        "point": "Notion AI is widely considered underpowered vs. standalone AI tools, even among loyal users",
         "supportCount": 1,
         "sentiment": "negative"
       }
     ],
     "buriedReviews": [
       {
-        "quote": "The changes made were either unnecessary, superficial, or for the worse \u2014 Bike+ problems could be seen from the get-go",
+        "quote": "I ditched Notion after 5 years \u2014 at first I loved the versatility but over time the cracks showed",
         "sourceKind": "reddit",
         "sourceName": "reddit.com",
-        "url": "https://www.reddit.com/r/pelotoncycle/comments/la8cx1/my_horrible_experience_with_bike/",
+        "url": "https://www.reddit.com/r/Notion/comments/1axwg6n/why_i_ditched_notion_after_5_years_my_experience/",
         "sentiment": "negative",
         "buriedReasons": [
           "candid_community",
           "contrarian"
-        ],
-        "rank": 7
+        ]
       },
       {
-        "quote": "Issues such as sloppy content, outdated technology, high costs, and forced subscription emerged after 5 years of ownership",
+        "quote": "Notion AI sucks. It uses subpar models and can't identify stuff inside specific databases when asked",
+        "sourceKind": "reddit",
+        "sourceName": "reddit.com",
+        "url": "https://www.reddit.com/r/Notion/comments/1g7gx3h/lets_be_honest_about_notion_ai/",
+        "sentiment": "negative",
+        "buriedReasons": [
+          "candid_community",
+          "contrarian"
+        ]
+      },
+      {
+        "quote": "Aesthetic but un-intuitive dashboards, useless widgets, templates requiring a 45-minute tutorial",
+        "sourceKind": "reddit",
+        "sourceName": "reddit.com",
+        "url": "https://www.reddit.com/r/Notion/comments/1jcw3y1/are_we_making_notion_too_complicated_after_6/",
+        "sentiment": "negative",
+        "buriedReasons": [
+          "candid_community",
+          "contrarian"
+        ]
+      },
+      {
+        "quote": "Often slow or goes down, which makes it frustrating to rely on",
+        "sourceKind": "trustpilot",
+        "sourceName": "trustpilot.com",
+        "url": "https://www.trustpilot.com/review/notion.so",
+        "sentiment": "negative",
+        "buriedReasons": [
+          "downvoted_or_old",
+          "low_search_rank"
+        ]
+      },
+      {
+        "quote": "Advice from the Notion community feels more like a polished to-do list than genuinely useful guidance",
+        "sourceKind": "reddit",
+        "sourceName": "reddit.com",
+        "url": "https://www.reddit.com/r/productivity/comments/z6v8jt/is_notion_that_useful/",
+        "sentiment": "negative",
+        "buriedReasons": [
+          "niche_source",
+          "candid_community"
+        ]
+      }
+    ],
+    "sentimentGaps": [
+      {
+        "marketingClaim": "All-in-one workspace that replaces every productivity tool you need",
+        "realityFinding": "Users frequently find it over-engineered for daily tasks and eventually revert to simpler tools",
+        "gapScore": 72
+      },
+      {
+        "marketingClaim": "Notion AI supercharges your workflow with intelligent assistance",
+        "realityFinding": "Power users call the AI subpar and unable to query its own databases reliably",
+        "gapScore": 80
+      },
+      {
+        "marketingClaim": "Reliable, always-available cloud workspace",
+        "realityFinding": "Multiple reviewers cite slowness and outages as a recurring frustration",
+        "gapScore": 60
+      }
+    ],
+    "sourcesScanned": 34,
+    "searchesRun": 5,
+    "agentSteps": [
+      {
+        "label": "Planning research angles",
+        "detail": "Reddit candid discussions \u00b7 Trustpilot & Sitejabber user reviews \u00b7 Long-term blogger reviews \u00b7 Power user and enthusiast community takes \u00b7 Team and business use experiences",
+        "status": "done"
+      },
+      {
+        "label": "Searching the live web",
+        "detail": "34 candid sources from 5 searches",
+        "status": "done"
+      },
+      {
+        "label": "Reading sources & writing the honest verdict",
+        "detail": "14 sources",
+        "status": "done"
+      }
+    ],
+    "generatedAt": "2026-06-07T13:47:12.366Z",
+    "usedMock": false
+  },
+  "peloton bike+": {
+    "query": "Peloton Bike+",
+    "verdict": "The Peloton Bike+ is a genuinely solid premium exercise bike with standout features like the rotating screen and auto-resistance, but it carries a steep price premium over the base Bike that many users question. Long-term usage drop-off, costly subscription dependency, and poor customer service are real concerns the marketing glosses over.",
+    "overallSentiment": "mixed",
+    "trustScore": 58,
+    "hiddenInsights": [
+      {
+        "point": "Long-term usage drop-off is a documented pattern \u2014 many users ride intensely at first then taper significantly within 1-2 years",
+        "supportCount": 2,
+        "sentiment": "negative"
+      },
+      {
+        "point": "The Bike+ screen rotation and auto-resistance are genuinely loved features, but many users say the base Bike delivers 90% of the value for far less money",
+        "supportCount": 3,
+        "sentiment": "mixed"
+      },
+      {
+        "point": "Without the $44/month subscription, the bike loses most of its value \u2014 making total cost of ownership far higher than the sticker price suggests",
+        "supportCount": 2,
+        "sentiment": "negative"
+      },
+      {
+        "point": "Customer service is widely reported as poor, especially in UK and Germany markets, with slow responses and repair delays",
+        "supportCount": 3,
+        "sentiment": "negative"
+      }
+    ],
+    "buriedReviews": [
+      {
+        "quote": "Outdated technology, high costs, and forced subscription model were cited after 5 years of ownership as major ongoing frustrations",
         "sourceKind": "reddit",
         "sourceName": "reddit.com",
         "url": "https://www.reddit.com/r/homegym/comments/1e51wj4/review_of_peloton_bike_5_years_later/",
         "sentiment": "negative",
         "buriedReasons": [
           "candid_community",
-          "downvoted_or_old"
-        ],
-        "rank": 3
+          "low_search_rank"
+        ]
       },
       {
-        "quote": "Poor customer service, no communication and a lack of competency across the entire organization",
-        "sourceKind": "forum",
-        "sourceName": "pelotonforum.com",
-        "url": "https://www.pelotonforum.com/threads/peloton-bike-review-and-full-dashboard-demo.5/",
-        "sentiment": "negative",
-        "buriedReasons": [
-          "low_search_rank",
-          "niche_source"
-        ],
-        "rank": 11
-      },
-      {
-        "quote": "Bike broke down after just two days with a clicking sound; complaint filed but resolution relied on slow spare parts process",
+        "quote": "Bike broke down after just two days, making a clicking sound when pedaling; communication with Peloton is difficult",
         "sourceKind": "trustpilot",
         "sourceName": "trustpilot.com",
         "url": "https://www.trustpilot.com/review/www.onepeloton.de",
         "sentiment": "negative",
         "buriedReasons": [
-          "niche_source",
-          "low_search_rank"
-        ],
-        "rank": 2
-      }
-    ],
-    "sentimentGaps": [
-      {
-        "marketingClaim": "Premium $2,500 Bike+ is a significant upgrade worth the price",
-        "realityFinding": "Candid owners and community members say upgrades are largely superficial and the base Bike performs similarly",
-        "gapScore": 72
+          "low_search_rank",
+          "niche_source"
+        ]
       },
       {
-        "marketingClaim": "World-class connected fitness experience with top-tier content",
-        "realityFinding": "Long-term users report content quality has become sloppy and the platform feels technologically stale",
-        "gapScore": 60
-      },
-      {
-        "marketingClaim": "Reliable hardware backed by responsive support",
-        "realityFinding": "Multiple sources cite hardware failures and deeply frustrating, unresponsive customer service",
-        "gapScore": 78
-      }
-    ],
-    "sourcesScanned": 12,
-    "generatedAt": "2026-06-07T12:45:55.042Z",
-    "usedMock": false
-  },
-  "dyson v15": {
-    "query": "Dyson V15",
-    "verdict": "The Dyson V15 is a genuinely impressive cleaner with standout laser detection and strong suction, but real-world owners report durability issues, breakage over time, and notoriously poor customer service \u2014 making the premium price a gamble if anything goes wrong.",
-    "overallSentiment": "mixed",
-    "trustScore": 58,
-    "hiddenInsights": [
-      {
-        "point": "Physical durability is a recurring complaint \u2014 parts break with regular use, contradicting the premium build narrative",
-        "supportCount": 2,
-        "sentiment": "negative"
-      },
-      {
-        "point": "Customer service across multiple regions (US, UK, Canada, Norway) is widely described as unhelpful and unresponsive",
-        "supportCount": 4,
-        "sentiment": "negative"
-      },
-      {
-        "point": "Consumer Reports does not recommend cordless vacuums generally due to reliability vs corded types \u2014 relevant context Dyson marketing omits",
-        "supportCount": 1,
-        "sentiment": "negative"
-      },
-      {
-        "point": "Two-year real-world use suggests performance holds up, but blockages and maintenance demand are higher than marketed",
-        "supportCount": 1,
-        "sentiment": "mixed"
-      }
-    ],
-    "buriedReviews": [
-      {
-        "quote": "It constantly breaks... literally. It is not for everyone despite the hype.",
+        "quote": "Many older hyped-up posts about working out 6x a week \u2014 but recent long-term users paint a quieter, more moderate reality",
         "sourceKind": "reddit",
         "sourceName": "reddit.com",
-        "url": "https://www.reddit.com/r/dyson/comments/18wxwkz/so_i_was_gifted_a_dyson_v15_detect_and_this_is_my/",
+        "url": "https://www.reddit.com/r/pelotoncycle/comments/1hykhb3/long_term_users_still_using/",
+        "sentiment": "mixed",
+        "buriedReasons": [
+          "candid_community",
+          "contrarian"
+        ]
+      },
+      {
+        "quote": "Significant dissatisfaction with customer service described across many UK reviews despite enjoying the product itself",
+        "sourceKind": "trustpilot",
+        "sourceName": "trustpilot.com",
+        "url": "https://www.trustpilot.com/review/onepeloton.co.uk",
+        "sentiment": "negative",
+        "buriedReasons": [
+          "low_search_rank",
+          "niche_source"
+        ]
+      },
+      {
+        "quote": "Users debate whether the bike is worthwhile at all without the subscription, suggesting hardware value alone is limited",
+        "sourceKind": "reddit",
+        "sourceName": "reddit.com",
+        "url": "https://www.reddit.com/r/pelotoncycle/comments/1qkrrhg/worth_getting_a_peloton_without_the_subscription/",
         "sentiment": "negative",
         "buriedReasons": [
           "candid_community",
           "contrarian"
-        ],
-        "rank": 1
-      },
-      {
-        "quote": "Product arrived not working and return process described as a scam.",
-        "sourceKind": "trustpilot",
-        "sourceName": "trustpilot.com",
-        "url": "https://www.trustpilot.com/review/dyson.no",
-        "sentiment": "negative",
-        "buriedReasons": [
-          "niche_source",
-          "downvoted_or_old"
-        ],
-        "rank": 5
-      },
-      {
-        "quote": "Consumer Reports does not recommend any cordless stick vacuums due to sub-par reliability vs corded types.",
-        "sourceKind": "blog",
-        "sourceName": "consumerreports.org",
-        "url": "https://www.consumerreports.org/appliances/vacuum-cleaners/dyson-v15-detect-cordless-stick-vacuum-review-a1041437007/",
-        "sentiment": "negative",
-        "buriedReasons": [
-          "low_search_rank",
-          "contrarian"
-        ],
-        "rank": 9
-      },
-      {
-        "quote": "Customer service described as unhelpful, frustrating, and often unresponsive.",
-        "sourceKind": "trustpilot",
-        "sourceName": "trustpilot.com",
-        "url": "https://www.trustpilot.com/review/www.dysoncanada.ca?page=5",
-        "sentiment": "negative",
-        "buriedReasons": [
-          "niche_source",
-          "low_search_rank"
-        ],
-        "rank": 7
+        ]
       }
     ],
     "sentimentGaps": [
       {
-        "marketingClaim": "Premium engineering and laser detection make it the ultimate cordless vacuum",
-        "realityFinding": "Multiple owners report physical breakage and parts failures within normal use periods",
+        "marketingClaim": "Premium Bike+ features justify the significantly higher price over the base Bike",
+        "realityFinding": "Most Reddit owners say the price gap \u2014 nearly \u00a31000 in UK \u2014 is hard to justify unless you specifically need the rotating screen or auto-resistance",
         "gapScore": 72
       },
       {
-        "marketingClaim": "Dyson stands behind its products with strong support",
-        "realityFinding": "Customer service is widely rated as poor across US, UK, Canada, and Norway Trustpilot reviews",
-        "gapScore": 80
+        "marketingClaim": "Peloton offers a world-class connected fitness experience with ongoing support",
+        "realityFinding": "Customer service is repeatedly flagged as slow, difficult, and unhelpful across Trustpilot in multiple countries",
+        "gapScore": 78
       },
       {
-        "marketingClaim": "Cordless convenience with no performance compromise",
-        "realityFinding": "Consumer Reports flags cordless vacuums categorically for reliability shortfalls vs corded alternatives",
-        "gapScore": 55
+        "marketingClaim": "Peloton transforms your fitness and keeps you motivated long-term",
+        "realityFinding": "Long-term usage decline is commonly reported; the initial motivation boost often fades within 1-2 years for many owners",
+        "gapScore": 65
       }
     ],
-    "sourcesScanned": 12,
-    "generatedAt": "2026-06-07T12:43:25.661Z",
+    "sourcesScanned": 35,
+    "searchesRun": 5,
+    "agentSteps": [
+      {
+        "label": "Planning research angles",
+        "detail": "Reddit candid owner discussions \u00b7 Trustpilot & Sitejabber customer reviews \u00b7 Long-term ownership blog reviews \u00b7 Enthusiast & fitness community takes \u00b7 Reliability, hardware & support experiences",
+        "status": "done"
+      },
+      {
+        "label": "Searching the live web",
+        "detail": "35 candid sources from 5 searches",
+        "status": "done"
+      },
+      {
+        "label": "Reading sources & writing the honest verdict",
+        "detail": "14 sources",
+        "status": "done"
+      }
+    ],
+    "generatedAt": "2026-06-07T13:47:38.169Z",
     "usedMock": false
   }
 }

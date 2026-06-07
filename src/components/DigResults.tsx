@@ -6,6 +6,7 @@ import { TrustMeter } from "./TrustMeter";
 import { HiddenInsights } from "./HiddenInsights";
 import { SentimentGapBar } from "./SentimentGapBar";
 import { BuriedReviewCard } from "./BuriedReviewCard";
+import { AgentTrace } from "./AgentTrace";
 
 function SectionTitle({ children }: { children: ReactNode }) {
   return (
@@ -91,8 +92,18 @@ export function DigResults({ result }: { result: DigResult }) {
         </section>
       )}
 
+      {result.agentSteps && result.agentSteps.length > 0 && (
+        <section>
+          <SectionTitle>How the agent dug</SectionTitle>
+          <Card className="p-5">
+            <AgentTrace steps={result.agentSteps} />
+          </Card>
+        </section>
+      )}
+
       <p className="text-center text-xs text-muted">
-        Scanned {result.sourcesScanned} sources ·{" "}
+        {result.searchesRun ? `${result.searchesRun} targeted searches · ` : ""}
+        scanned {result.sourcesScanned} sources ·{" "}
         {result.usedMock ? "demo data" : "live web via Nimble"}
       </p>
     </div>

@@ -2,6 +2,9 @@ import { NextResponse } from "next/server";
 import { z } from "zod";
 import { dig } from "@/lib/dig/dig";
 
+// Live digs run a multi-step research agent; give it headroom under the cap.
+export const maxDuration = 60;
+
 const DigSchema = z.object({
   query: z.string().trim().min(1, "Enter something to look up.").max(120),
 });
@@ -11,7 +14,10 @@ export async function POST(req: Request) {
   try {
     body = await req.json();
   } catch {
-    return NextResponse.json({ error: "Invalid request body." }, { status: 400 });
+    return NextResponse.json(
+      { error: "Invalid request body." },
+      { status: 400 },
+    );
   }
 
   const parsed = DigSchema.safeParse(body);

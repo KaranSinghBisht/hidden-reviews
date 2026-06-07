@@ -7,6 +7,21 @@ export interface NimbleResult {
   title: string;
   snippet: string;
   url: string;
+  /**
+   * Full page text — populated only on `deep` searches, and empty for
+   * scrape-hostile sites like Reddit (use the snippet there).
+   */
+  content?: string;
+}
+
+export interface SearchOpts {
+  /** "lite" = snippets (fast). "deep" = full page content (slow, richer). */
+  depth?: "lite" | "deep";
+  includeDomains?: string[];
+  excludeDomains?: string[];
+  maxResults?: number;
+  /** Abort the search after this long so one angle can't hang the dig. */
+  timeoutMs?: number;
 }
 
 type Raw = Record<string, unknown>;
@@ -38,38 +53,54 @@ function extractItems(data: unknown): Raw[] {
 
 /** Map a raw result onto our shape, tolerating common field-name variants. */
 function mapItem(r: Raw): NimbleResult {
+  const content = str(r.content);
   return {
     title: str(r.title) || str(r.name) || str(r.heading),
     snippet:
       str(r.description) ||
       str(r.snippet) ||
       str(r.text) ||
-      str(r.content) ||
       str(r.body),
     url: str(r.url) || str(r.link) || str(r.href),
+    // Deep search returns the full page; treat near-empty (e.g. Reddit) as none.
+    content: content.length > 80 ? content : undefined,
   };
 }
 
 /**
- * Search the live web via Nimble, biased toward candid review content.
- * Returns real results (real URLs); the synthesis layer references these by
- * index, so nothing downstream can invent a source.
+ * One configurable search against Nimble's live-web index. The agent composes
+ * several of these (different queries / depths / target domains) per dig.
+ * Returns real results with real URLs; synthesis references them by index so
+ * nothing downstream can invent a source.
  */
-export async function nimbleSearch(query: string): Promise<NimbleResult[]> {
+export async function nimbleSearch(
+  query: string,
+  opts: SearchOpts = {},
+): Promise<NimbleResult[]> {
+  const {
+    depth = "lite",
+    includeDomains,
+    excludeDomains,
+    maxResults = 10,
+    timeoutMs = 30_000,
+  } = opts;
+
+  const body: Record<string, unknown> = {
+    query,
+    max_results: maxResults,
+    search_depth: depth,
+  };
+  if (includeDomains?.length) body.include_domains = includeDomains;
+  if (excludeDomains?.length) body.exclude_domains = excludeDomains;
+
   const res = await fetch(SEARCH_URL, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       Authorization: `Bearer ${env.nimbleApiKey}`,
     },
-    body: JSON.stringify({
-      query: `${query} honest reviews complaints problems reddit trustpilot`,
-      max_results: 12,
-      search_depth: "lite",
-      focus: "general",
-    }),
-    // Don't let a stalled search hang the whole dig.
-    signal: AbortSignal.timeout(15_000),
+    body: JSON.stringify(body),
+    signal: AbortSignal.timeout(timeoutMs),
   });
 
   if (!res.ok) {

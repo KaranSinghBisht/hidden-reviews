@@ -3,32 +3,30 @@
 import { useState } from "react";
 import { SearchBar } from "@/components/SearchBar";
 import { DigResults } from "@/components/DigResults";
+import { AgentTrace } from "@/components/AgentTrace";
 import { UseCases } from "@/components/landing/UseCases";
 import { McpConnect } from "@/components/landing/McpConnect";
 import { HowItWorks } from "@/components/landing/HowItWorks";
-import type { DigResult } from "@/lib/types";
+import { streamDig } from "@/lib/dig/stream-client";
+import type { AgentStep, DigResult } from "@/lib/types";
 
-const EXAMPLES = ["Dyson V15", "Notion", "Peloton Bike+"];
+const EXAMPLES = ["Dyson V15", "Dune Part Two", "Joe's Pizza NYC"];
 
 export default function Home() {
   const [result, setResult] = useState<DigResult | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [activeQuery, setActiveQuery] = useState("");
+  const [steps, setSteps] = useState<AgentStep[]>([]);
 
   async function runDig(query: string) {
     setLoading(true);
     setError(null);
     setActiveQuery(query);
+    setSteps([]);
     try {
-      const res = await fetch("/api/dig", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ query }),
-      });
-      const data = await res.json();
-      if (!res.ok) throw new Error(data?.error ?? "Something went wrong.");
-      setResult(data as DigResult);
+      const data = await streamDig(query, setSteps);
+      setResult(data);
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (e) {
       setError(e instanceof Error ? e.message : "Something went wrong.");
@@ -45,15 +43,22 @@ export default function Home() {
           <p className="mt-5 max-w-xl text-lg leading-relaxed text-muted">
             Reviews are usually hidden.{" "}
             <span className="text-cream">Not here.</span> We dig past page-one
-            marketing to the honest, buried takes real people leave — with sources.
+            marketing to the honest, buried takes real people leave — with
+            sources.
           </p>
           <div className="mt-8 w-full max-w-xl">
             <SearchBar onSearch={runDig} loading={loading} />
           </div>
           {loading ? (
-            <p className="mt-6 animate-pulse font-mono text-sm text-accent">
-              Digging through the long tail…
-            </p>
+            steps.length > 0 ? (
+              <div className="mt-8">
+                <AgentTrace steps={steps} />
+              </div>
+            ) : (
+              <p className="mt-6 animate-pulse font-mono text-sm text-accent">
+                Sending the research agent out…
+              </p>
+            )
           ) : error ? (
             <p className="mt-6 text-sm text-negative">{error}</p>
           ) : (
@@ -115,6 +120,12 @@ export default function Home() {
           <p className="rounded-lg border border-negative/30 bg-negative/10 px-4 py-2 text-sm text-negative">
             {error}
           </p>
+        </div>
+      )}
+
+      {loading && steps.length > 0 && (
+        <div className="mx-auto mt-6 max-w-3xl px-4">
+          <AgentTrace steps={steps} />
         </div>
       )}
 

@@ -64,6 +64,15 @@ export interface HiddenInsight {
   sentiment: Sentiment;
 }
 
+/** One step in the research agent's visible trace ("watch it work"). */
+export interface AgentStep {
+  /** Short label, e.g. "Searching Reddit" or "Reading long-term reviews". */
+  label: string;
+  /** Optional detail, e.g. "12 candid sources". */
+  detail?: string;
+  status: "running" | "done";
+}
+
 /** The full result of digging into one query. */
 export interface DigResult {
   /** What the user searched (product / place / company). */
@@ -78,6 +87,10 @@ export interface DigResult {
   sentimentGaps: SentimentGap[];
   /** How many pages/sources we scanned to produce this. */
   sourcesScanned: number;
+  /** How many distinct, targeted web searches the agent ran. */
+  searchesRun?: number;
+  /** The agent's research trace, for the "watch it work" UI. */
+  agentSteps?: AgentStep[];
   /** ISO timestamp, stamped by the API. */
   generatedAt: string;
   /** True when served from canned data (no API keys configured). */
