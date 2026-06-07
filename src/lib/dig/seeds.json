@@ -1,0 +1,284 @@
+{
+  "notion": {
+    "query": "Notion",
+    "verdict": "Notion is genuinely powerful for docs and wikis, earning loyal fans and 100M users. But beneath the hype lies a pattern of reliability issues, poor customer support, and billing complaints that marketing glosses over. Great if it works for you; risky to depend on for critical workflows.",
+    "overallSentiment": "mixed",
+    "trustScore": 52,
+    "hiddenInsights": [
+      {
+        "point": "Notion's Trustpilot score sits between 1.5\u20132.5 stars, driven largely by billing errors, login failures, and unresponsive support",
+        "supportCount": 4,
+        "sentiment": "negative"
+      },
+      {
+        "point": "Frequent slowdowns and outages make it unreliable for teams depending on it daily",
+        "supportCount": 3,
+        "sentiment": "negative"
+      },
+      {
+        "point": "High learnability barrier \u2014 unintuitive UX causes many users to abandon it after initial enthusiasm",
+        "supportCount": 1,
+        "sentiment": "negative"
+      },
+      {
+        "point": "For knowledge bases and wikis specifically, it remains best-in-class with strong G2 ratings",
+        "supportCount": 1,
+        "sentiment": "positive"
+      }
+    ],
+    "buriedReviews": [
+      {
+        "quote": "Notion falls short in learnability and unintuitive design \u2014 enough to make users stop entirely",
+        "sourceKind": "blog",
+        "sourceName": "uxplanet.org",
+        "url": "https://uxplanet.org/why-i-stopped-using-notion-an-honest-ux-review-ebf03e268a01",
+        "sentiment": "negative",
+        "buriedReasons": [
+          "low_search_rank",
+          "contrarian"
+        ],
+        "rank": 5
+      },
+      {
+        "quote": "Billing errors and login failures are the top complaints; Notion holds a 1.5-star rating across roughly 200 reviews",
+        "sourceKind": "blog",
+        "sourceName": "19pine.ai",
+        "url": "https://www.19pine.ai/customer-service/software-and-app-services/how-to-contact-notion-customer-service",
+        "sentiment": "negative",
+        "buriedReasons": [
+          "low_search_rank",
+          "niche_source"
+        ],
+        "rank": 10
+      },
+      {
+        "quote": "40% of users give Notion 1 star, with many complaints highlighting similar issues",
+        "sourceKind": "blog",
+        "sourceName": "facebook.com",
+        "url": "https://www.facebook.com/groups/notionbusiness/posts/1666903587522224/",
+        "sentiment": "negative",
+        "buriedReasons": [
+          "candid_community",
+          "low_search_rank"
+        ],
+        "rank": 3
+      }
+    ],
+    "sentimentGaps": [
+      {
+        "marketingClaim": "An all-in-one workspace trusted by 100M users",
+        "realityFinding": "Reliability and outages undermine daily trust; customer support is widely criticised as inadequate",
+        "gapScore": 72
+      },
+      {
+        "marketingClaim": "Intuitive, flexible tool for everyone",
+        "realityFinding": "UX is steep and unintuitive enough that users actively write about quitting it",
+        "gapScore": 65
+      },
+      {
+        "marketingClaim": "Seamless billing and account management",
+        "realityFinding": "Billing errors are among the top complaints on Trustpilot with little resolution",
+        "gapScore": 70
+      }
+    ],
+    "sourcesScanned": 12,
+    "generatedAt": "2026-06-07T12:47:52.626Z",
+    "usedMock": false
+  },
+  "peloton bike+": {
+    "query": "Peloton Bike+",
+    "verdict": "The Bike+ delivers genuinely great classes and a premium ride, but long-term owners flag aging tech, sloppy content curation, and serious customer service failures. At $2,500 plus subscription fees, many find the original Bike sufficient and the upgrade hard to justify.",
+    "overallSentiment": "mixed",
+    "trustScore": 58,
+    "hiddenInsights": [
+      {
+        "point": "After 5 years, owners report the technology feels outdated and Peloton forces subscription dependency with limited offline options",
+        "supportCount": 1,
+        "sentiment": "negative"
+      },
+      {
+        "point": "Many users find the original Bike offers near-identical class quality, making the Bike+ premium hard to justify",
+        "supportCount": 2,
+        "sentiment": "negative"
+      },
+      {
+        "point": "Customer service is widely described as unresponsive and incompetent, even when hardware fails quickly",
+        "supportCount": 3,
+        "sentiment": "negative"
+      },
+      {
+        "point": "The Bike+ changes over the original were seen by some owners as unnecessary or superficial rather than meaningful upgrades",
+        "supportCount": 1,
+        "sentiment": "negative"
+      }
+    ],
+    "buriedReviews": [
+      {
+        "quote": "The changes made were either unnecessary, superficial, or for the worse \u2014 Bike+ problems could be seen from the get-go",
+        "sourceKind": "reddit",
+        "sourceName": "reddit.com",
+        "url": "https://www.reddit.com/r/pelotoncycle/comments/la8cx1/my_horrible_experience_with_bike/",
+        "sentiment": "negative",
+        "buriedReasons": [
+          "candid_community",
+          "contrarian"
+        ],
+        "rank": 7
+      },
+      {
+        "quote": "Issues such as sloppy content, outdated technology, high costs, and forced subscription emerged after 5 years of ownership",
+        "sourceKind": "reddit",
+        "sourceName": "reddit.com",
+        "url": "https://www.reddit.com/r/homegym/comments/1e51wj4/review_of_peloton_bike_5_years_later/",
+        "sentiment": "negative",
+        "buriedReasons": [
+          "candid_community",
+          "downvoted_or_old"
+        ],
+        "rank": 3
+      },
+      {
+        "quote": "Poor customer service, no communication and a lack of competency across the entire organization",
+        "sourceKind": "forum",
+        "sourceName": "pelotonforum.com",
+        "url": "https://www.pelotonforum.com/threads/peloton-bike-review-and-full-dashboard-demo.5/",
+        "sentiment": "negative",
+        "buriedReasons": [
+          "low_search_rank",
+          "niche_source"
+        ],
+        "rank": 11
+      },
+      {
+        "quote": "Bike broke down after just two days with a clicking sound; complaint filed but resolution relied on slow spare parts process",
+        "sourceKind": "trustpilot",
+        "sourceName": "trustpilot.com",
+        "url": "https://www.trustpilot.com/review/www.onepeloton.de",
+        "sentiment": "negative",
+        "buriedReasons": [
+          "niche_source",
+          "low_search_rank"
+        ],
+        "rank": 2
+      }
+    ],
+    "sentimentGaps": [
+      {
+        "marketingClaim": "Premium $2,500 Bike+ is a significant upgrade worth the price",
+        "realityFinding": "Candid owners and community members say upgrades are largely superficial and the base Bike performs similarly",
+        "gapScore": 72
+      },
+      {
+        "marketingClaim": "World-class connected fitness experience with top-tier content",
+        "realityFinding": "Long-term users report content quality has become sloppy and the platform feels technologically stale",
+        "gapScore": 60
+      },
+      {
+        "marketingClaim": "Reliable hardware backed by responsive support",
+        "realityFinding": "Multiple sources cite hardware failures and deeply frustrating, unresponsive customer service",
+        "gapScore": 78
+      }
+    ],
+    "sourcesScanned": 12,
+    "generatedAt": "2026-06-07T12:45:55.042Z",
+    "usedMock": false
+  },
+  "dyson v15": {
+    "query": "Dyson V15",
+    "verdict": "The Dyson V15 is a genuinely impressive cleaner with standout laser detection and strong suction, but real-world owners report durability issues, breakage over time, and notoriously poor customer service \u2014 making the premium price a gamble if anything goes wrong.",
+    "overallSentiment": "mixed",
+    "trustScore": 58,
+    "hiddenInsights": [
+      {
+        "point": "Physical durability is a recurring complaint \u2014 parts break with regular use, contradicting the premium build narrative",
+        "supportCount": 2,
+        "sentiment": "negative"
+      },
+      {
+        "point": "Customer service across multiple regions (US, UK, Canada, Norway) is widely described as unhelpful and unresponsive",
+        "supportCount": 4,
+        "sentiment": "negative"
+      },
+      {
+        "point": "Consumer Reports does not recommend cordless vacuums generally due to reliability vs corded types \u2014 relevant context Dyson marketing omits",
+        "supportCount": 1,
+        "sentiment": "negative"
+      },
+      {
+        "point": "Two-year real-world use suggests performance holds up, but blockages and maintenance demand are higher than marketed",
+        "supportCount": 1,
+        "sentiment": "mixed"
+      }
+    ],
+    "buriedReviews": [
+      {
+        "quote": "It constantly breaks... literally. It is not for everyone despite the hype.",
+        "sourceKind": "reddit",
+        "sourceName": "reddit.com",
+        "url": "https://www.reddit.com/r/dyson/comments/18wxwkz/so_i_was_gifted_a_dyson_v15_detect_and_this_is_my/",
+        "sentiment": "negative",
+        "buriedReasons": [
+          "candid_community",
+          "contrarian"
+        ],
+        "rank": 1
+      },
+      {
+        "quote": "Product arrived not working and return process described as a scam.",
+        "sourceKind": "trustpilot",
+        "sourceName": "trustpilot.com",
+        "url": "https://www.trustpilot.com/review/dyson.no",
+        "sentiment": "negative",
+        "buriedReasons": [
+          "niche_source",
+          "downvoted_or_old"
+        ],
+        "rank": 5
+      },
+      {
+        "quote": "Consumer Reports does not recommend any cordless stick vacuums due to sub-par reliability vs corded types.",
+        "sourceKind": "blog",
+        "sourceName": "consumerreports.org",
+        "url": "https://www.consumerreports.org/appliances/vacuum-cleaners/dyson-v15-detect-cordless-stick-vacuum-review-a1041437007/",
+        "sentiment": "negative",
+        "buriedReasons": [
+          "low_search_rank",
+          "contrarian"
+        ],
+        "rank": 9
+      },
+      {
+        "quote": "Customer service described as unhelpful, frustrating, and often unresponsive.",
+        "sourceKind": "trustpilot",
+        "sourceName": "trustpilot.com",
+        "url": "https://www.trustpilot.com/review/www.dysoncanada.ca?page=5",
+        "sentiment": "negative",
+        "buriedReasons": [
+          "niche_source",
+          "low_search_rank"
+        ],
+        "rank": 7
+      }
+    ],
+    "sentimentGaps": [
+      {
+        "marketingClaim": "Premium engineering and laser detection make it the ultimate cordless vacuum",
+        "realityFinding": "Multiple owners report physical breakage and parts failures within normal use periods",
+        "gapScore": 72
+      },
+      {
+        "marketingClaim": "Dyson stands behind its products with strong support",
+        "realityFinding": "Customer service is widely rated as poor across US, UK, Canada, and Norway Trustpilot reviews",
+        "gapScore": 80
+      },
+      {
+        "marketingClaim": "Cordless convenience with no performance compromise",
+        "realityFinding": "Consumer Reports flags cordless vacuums categorically for reliability shortfalls vs corded alternatives",
+        "gapScore": 55
+      }
+    ],
+    "sourcesScanned": 12,
+    "generatedAt": "2026-06-07T12:43:25.661Z",
+    "usedMock": false
+  }
+}

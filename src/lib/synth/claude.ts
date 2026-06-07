@@ -72,7 +72,7 @@ export async function synthesize(
   // minutes on the SDK's 10-minute default. Retry transient errors twice.
   const client = new Anthropic({
     apiKey: env.anthropicApiKey,
-    timeout: 35_000,
+    timeout: Number(process.env.SYNTH_TIMEOUT_MS) || 35_000,
     maxRetries: 1,
   });
 
@@ -90,7 +90,7 @@ Produce the honest verdict for "${query}". Surface the buried reviews (by source
 
   const response = await client.messages.parse({
     model: MODEL,
-    max_tokens: 4000,
+    max_tokens: 2500,
     system: SYSTEM,
     messages: [{ role: "user", content: user }],
     output_config: { format: zodOutputFormat(SynthSchema), effort: "low" },
