@@ -33,13 +33,16 @@ query
   │                restaurant→ Yelp · local Reddit · candid write-ups
   │
   ├─ 2. SEARCH   Runs every angle against Nimble in PARALLEL — domain-targeted
-  │              live-web searches — then dedupes (~20–38 sources per dig).
+  │              live-web searches — then dedupes (~35 sources per dig).
   │
-  ├─ 3. READ     Claude synthesises the candid sources into a structured,
-  │              honest verdict. It cites sources by INDEX; the real URLs are
-  │              rebuilt in code, so a source can never be hallucinated.
+  ├─ 3. ASSESS   Reads what came back, names the biggest coverage GAP, and
+  │   ↺ LOOP     fires a follow-up search to fill it (observe → decide → act).
   │
-  └─ 4. STREAM   Every step is streamed to the UI (SSE) — plan, search, read.
+  ├─ 4. READ     Claude synthesises the candid sources into a structured,
+  │              honest verdict. Cites sources by INDEX; real URLs are rebuilt
+  │              in code, so a source can never be hallucinated.
+  │
+  └─ 5. STREAM   Every step streams to the UI (SSE) — you watch it work.
 ```
 
 Each step is visible in the result's **"How the agent dug"** trace.
@@ -48,9 +51,9 @@ Each step is visible in the result's **"How the agent dug"** trace.
 
 The engine is built on the **Nimble Search API** (`/v1/search`) and uses it as a real toolbox, not a single call:
 
-- **Multi-angle search** — 4–5 distinct, model-planned queries per dig
+- **Multi-angle search + a feedback loop** — 4–5 model-planned queries, then an `assess` step that names the coverage gap and fires a follow-up (~6 searches, ~35–41 sources per dig)
 - **Domain targeting** — `include_domains` to hit Reddit, Trustpilot, Letterboxd, Yelp… specifically
-- **Depth** — `search_depth` for snippet vs. full-page content
+- **Adaptive depth** — `search_depth` `lite` drives the real-time path for speed; `deep` full-page extraction is supported in the client
 - **Parallel + resilient** — `Promise.allSettled`, per-search timeouts; one angle failing never sinks the dig
 
 ## Honest by construction
@@ -86,7 +89,8 @@ Tool: `get_hidden_reviews(query)` → the honest, sourced verdict, formatted for
 ```
 src/lib/agent/plan.ts      model plans the search angles (adaptive)
 src/lib/agent/gather.ts    runs the searches in parallel, dedupes
-src/lib/agent/run.ts       orchestrates plan → search → synth, emits the trace
+src/lib/agent/assess.ts    the feedback loop: finds the coverage gap, re-searches
+src/lib/agent/run.ts       orchestrates plan → search → assess → synth, emits trace
 src/lib/nimble/client.ts   configurable Nimble Search client
 src/lib/synth/claude.ts    structured, index-grounded synthesis
 src/lib/dig/               cache → seed → mock → live, + SSE streaming

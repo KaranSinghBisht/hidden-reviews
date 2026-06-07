@@ -5,10 +5,6 @@ import { env } from "@/lib/env";
 export const SYNTH_MODEL =
   process.env.ANTHROPIC_MODEL?.trim() || "claude-sonnet-4-6";
 
-/** Fast model for planning / lightweight agent steps. */
-export const FAST_MODEL =
-  process.env.ANTHROPIC_FAST_MODEL?.trim() || "claude-haiku-4-5-20251001";
-
 /**
  * A bounded Anthropic client. Short timeouts so a slow/overloaded API fails
  * fast (the agent degrades gracefully) instead of hanging past Vercel's cap.

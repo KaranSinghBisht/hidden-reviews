@@ -39,11 +39,6 @@ export function BuriedReviewCard({ review }: { review: BuriedReview }) {
           </Badge>
         ))}
         <span className="ml-auto flex items-center gap-3 text-xs text-muted">
-          {typeof review.rank === "number" && review.rank >= 4 && (
-            <span className="text-accent/80">
-              ↓ buried at result #{review.rank}
-            </span>
-          )}
           {review.date && <span>{review.date}</span>}
         </span>
       </div>

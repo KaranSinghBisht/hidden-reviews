@@ -4,8 +4,10 @@ import type {
   DigResult,
   SourceKind,
 } from "@/lib/types";
+import { nimbleSearch } from "@/lib/nimble/client";
 import { planSearches } from "@/lib/agent/plan";
 import { gather, type GatheredSource } from "@/lib/agent/gather";
+import { assess } from "@/lib/agent/assess";
 import { synthesize, type SynthOutput } from "@/lib/synth/claude";
 
 export type TraceFn = (steps: AgentStep[]) => void;
@@ -17,10 +19,15 @@ function sourceKindFromUrl(url: string): SourceKind {
   if (u.includes("trustpilot.")) return "trustpilot";
   if (u.includes("yelp.")) return "yelp";
   if (u.includes("youtube.com") || u.includes("youtu.be")) return "youtube";
-  if (u.includes("ycombinator.com") || u.includes("forum") || u.includes("community")) {
+  if (
+    u.includes("ycombinator.com") ||
+    u.includes("forum") ||
+    u.includes("community")
+  ) {
     return "forum";
   }
-  if (u.includes("news") || u.includes("bbc.") || u.includes("nytimes.")) return "news";
+  if (u.includes("news") || u.includes("bbc.") || u.includes("nytimes."))
+    return "news";
   return "blog";
 }
 
@@ -34,6 +41,20 @@ function hostName(url: string): string {
 
 const clamp = (n: number) => Math.max(0, Math.min(100, Math.round(n)));
 
+/** Merge two source lists, dedupe by URL, keep the richest (content-bearing) one. */
+function mergeDedupe(
+  a: GatheredSource[],
+  b: GatheredSource[],
+): GatheredSource[] {
+  const byUrl = new Map<string, GatheredSource>();
+  for (const src of [...a, ...b]) {
+    const key = src.url.split("?")[0].replace(/\/$/, "");
+    const existing = byUrl.get(key);
+    if (!existing || (!existing.content && src.content)) byUrl.set(key, src);
+  }
+  return [...byUrl.values()];
+}
+
 /** Content-rich sources first (more to quote), capped for the synth budget. */
 function rankSources(sources: GatheredSource[]): GatheredSource[] {
   const withContent = sources.filter((s) => s.content);
@@ -41,7 +62,10 @@ function rankSources(sources: GatheredSource[]): GatheredSource[] {
   return [...withContent, ...without].slice(0, 14);
 }
 
-function mapBuried(synth: SynthOutput, sources: GatheredSource[]): BuriedReview[] {
+function mapBuried(
+  synth: SynthOutput,
+  sources: GatheredSource[],
+): BuriedReview[] {
   return synth.buriedReviews
     .filter((b) => b.sourceIndex >= 0 && b.sourceIndex < sources.length)
     .map((b) => {
@@ -58,10 +82,11 @@ function mapBuried(synth: SynthOutput, sources: GatheredSource[]): BuriedReview[
 }
 
 /**
- * The research agent: plan angles → run targeted live-web searches in
- * parallel → read the real content → write the honest verdict. Emits a trace
- * of its steps so the UI can show its work. Degrades gracefully: if synthesis
- * can't finish, it returns the raw buried sources rather than a 500.
+ * The research agent: plan angles → run targeted live-web searches in parallel
+ * → ASSESS coverage and dig deeper with a full-content read → synthesise the
+ * honest verdict. Emits a trace of its steps so the UI can show its work.
+ * Degrades gracefully: if synthesis can't finish, it returns the raw buried
+ * sources rather than a 500.
  */
 export async function runDigAgent(
   query: string,
@@ -87,17 +112,44 @@ export async function runDigAgent(
   finish(sp, specs.map((s) => s.label).join(" · "));
 
   // 2) Gather — run every targeted search in parallel.
-  const gatherLabel = specs
-    .map((s) => (s.depth === "deep" ? `${s.label} (deep)` : s.label))
-    .join(" · ");
-  const sg = start("Searching the live web", gatherLabel);
-  const sources = await gather(specs);
-  if (sources.length === 0) {
+  const sg = start(
+    "Searching the live web",
+    specs.map((s) => s.label).join(" · "),
+  );
+  const gathered = await gather(specs);
+  if (gathered.length === 0) {
     throw new Error("No live sources found for that query.");
   }
-  finish(sg, `${sources.length} candid sources from ${specs.length} searches`);
+  finish(sg, `${gathered.length} candid sources from ${specs.length} searches`);
 
-  // 3) Read the real content and write the verdict.
+  // 2b) Feedback loop: assess coverage, then dig deeper with a full-content read.
+  let sources = gathered;
+  let searchesRun = specs.length;
+  const sa = start("Assessing coverage & finding gaps");
+  const assessment = await assess(query, gathered);
+  if (assessment?.deepQuery) {
+    finish(sa, assessment.coverageNote);
+    const sd = start("Digging deeper to fill the gap", assessment.deepQuery);
+    try {
+      const followUp = await nimbleSearch(assessment.deepQuery, {
+        depth: "lite",
+        maxResults: 6,
+        timeoutMs: 12_000,
+      });
+      searchesRun += 1;
+      const followUpSources = followUp.map(
+        (r): GatheredSource => ({ ...r, via: "Gap-fill" }),
+      );
+      sources = mergeDedupe(gathered, followUpSources);
+      finish(sd, `+${followUpSources.length} sources on the gap`);
+    } catch {
+      finish(sd, "proceeding with the gathered sources");
+    }
+  } else {
+    finish(sa, "coverage looks solid");
+  }
+
+  // 3) Read the content and write the verdict.
   const top = rankSources(sources);
   const richCount = top.filter((s) => s.content).length;
   const ss = start(
@@ -109,8 +161,8 @@ export async function runDigAgent(
   try {
     synth = await synthesize(query, top);
   } catch {
-    finish(ss, "deep read timed out — showing the raw buried sources");
-    return sourcesOnly(query, sources, specs.length, steps);
+    finish(ss, "synthesis timed out — showing the raw buried sources");
+    return sourcesOnly(query, sources, searchesRun, steps);
   }
   finish(ss);
 
@@ -123,7 +175,7 @@ export async function runDigAgent(
     buriedReviews: mapBuried(synth, top),
     sentimentGaps: synth.sentimentGaps,
     sourcesScanned: sources.length,
-    searchesRun: specs.length,
+    searchesRun,
     agentSteps: steps.map((s) => ({ ...s, status: "done" as const })),
     generatedAt: new Date().toISOString(),
     usedMock: false,
