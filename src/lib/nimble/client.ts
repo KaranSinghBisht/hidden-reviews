@@ -68,6 +68,8 @@ export async function nimbleSearch(query: string): Promise<NimbleResult[]> {
       search_depth: "lite",
       focus: "general",
     }),
+    // Don't let a stalled search hang the whole dig.
+    signal: AbortSignal.timeout(15_000),
   });
 
   if (!res.ok) {

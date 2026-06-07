@@ -61,13 +61,20 @@ Rules:
 - Cite sources ONLY by their [index]. Never invent a source, quote, URL, or fact that the provided material does not support.
 - "Buried" means candid, low-visibility, or against-the-marketing-narrative content a normal searcher would miss — not just anything negative.
 - trustScore is 0-100: how much a buyer should trust the marketed promise given the real-world reports.
-- Quotes must be grounded in the provided snippets; paraphrase tightly if needed, never fabricate specifics.`;
+- Quotes must be grounded in the provided snippets; paraphrase tightly if needed, never fabricate specifics.
+- Be concise so the response is fast: at most 5 buried reviews, at most 4 hidden insights, at most 3 sentiment gaps. Verdict under 55 words; each quote under 30 words.`;
 
 export async function synthesize(
   query: string,
   sources: NimbleResult[],
 ): Promise<SynthOutput> {
-  const client = new Anthropic({ apiKey: env.anthropicApiKey });
+  // Bound the call: a slow/overloaded API should fail in ~45s, not hang for
+  // minutes on the SDK's 10-minute default. Retry transient errors twice.
+  const client = new Anthropic({
+    apiKey: env.anthropicApiKey,
+    timeout: 35_000,
+    maxRetries: 1,
+  });
 
   const numbered = sources
     .map((s, i) => `[${i}] ${s.title}\n${s.snippet}\n(${s.url})`)

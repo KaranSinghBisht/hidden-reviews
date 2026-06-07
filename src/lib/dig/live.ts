@@ -9,10 +9,15 @@ function sourceKindFromUrl(url: string): SourceKind {
   if (u.includes("trustpilot.")) return "trustpilot";
   if (u.includes("yelp.")) return "yelp";
   if (u.includes("youtube.com") || u.includes("youtu.be")) return "youtube";
-  if (u.includes("ycombinator.com") || u.includes("forum") || u.includes("community")) {
+  if (
+    u.includes("ycombinator.com") ||
+    u.includes("forum") ||
+    u.includes("community")
+  ) {
     return "forum";
   }
-  if (u.includes("news") || u.includes("bbc.") || u.includes("nytimes.")) return "news";
+  if (u.includes("news") || u.includes("bbc.") || u.includes("nytimes."))
+    return "news";
   return "blog";
 }
 
@@ -48,6 +53,8 @@ export async function liveDig(query: string): Promise<DigResult> {
         url: src.url,
         sentiment: b.sentiment,
         buriedReasons: b.buriedReasons,
+        // Position in the live result set — the honest "buried at #N" proof.
+        rank: b.sourceIndex + 1,
       };
     });
 
