@@ -27,7 +27,7 @@ Search any product, place, company, restaurant, or movie. A research agent:
 3. **Assesses** what came back, names the biggest coverage gap, and **re-searches** to fill it.
 4. **Synthesizes** an honest verdict: a 0–100 trust score, "what the marketing doesn't tell you," marketing-vs-reality gaps, and buried-review quotes — each linked to its real source.
 
-You watch every step stream live. And because it's also a **remote MCP server**, your AI assistant (Claude, Cursor, ChatGPT) can call it as a tool.
+You watch every step stream live, then it files a **dossier** — buried quotes load *redacted* and declassify as you read, each linked to its real page. The home page is an **archive of case files** you can browse, and every investigation lives at its own shareable **`hidden.reviews/<slug>`** URL. Because it's also a **remote MCP server**, your AI assistant (Claude, Cursor, ChatGPT) can call it as a tool.
 
 ## How we built it
 
@@ -49,6 +49,7 @@ You watch every step stream live. And because it's also a **remote MCP server**,
 
 - A real **agentic loop** — plan → search → assess → re-search → synthesize — not a single API call with a prompt.
 - **Zero hallucinated sources** by design.
+- A **declassified-archive UI** that makes the idea legible at a glance: a wall of redacted case files that reveal on hover, and dossiers whose buried quotes declassify as you read.
 - It hits **two prizes with one project**, and the product *is* the domain.
 
 ## What we learned

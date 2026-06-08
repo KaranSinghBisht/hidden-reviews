@@ -1,19 +1,35 @@
 @import "tailwindcss";
 
 @theme {
+  /* Surfaces — warm near-black "vault" tones */
+  --color-vault: #080605;
   --color-ink: #0c0a09;
   --color-surface: #17130f;
   --color-surface-2: #211b15;
+
+  /* Lines */
   --color-line: rgba(245, 241, 234, 0.1);
+  --color-line-strong: rgba(245, 241, 234, 0.18);
+
+  /* Ink on dark */
   --color-cream: #f5f1ea;
   --color-muted: #a39c92;
+  --color-faint: #6b645c;
+
+  /* Brand amber — "shine a light on what's buried" */
   --color-accent: #f5b14c;
   --color-accent-strong: #ffc36b;
+
+  /* Redaction bar — darker than any card so it reads as a censor bar */
+  --color-redact: #0a0807;
+
+  /* Sentiment */
   --color-positive: #4ade80;
   --color-negative: #fb7185;
 
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-instrument-serif);
 }
 
 :root {
@@ -28,13 +44,46 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* A soft beam from above — "shine a light on what's buried". */
+/* A soft beam from above — light cast on what's buried. */
 .bg-beam {
   background-image:
     radial-gradient(58rem 36rem at 50% -12%, rgba(245, 177, 76, 0.1), transparent 60%),
     radial-gradient(40rem 28rem at 82% 4%, rgba(245, 177, 76, 0.05), transparent 55%);
 }
 
+/* Faint archival grid — blueprint / case-file backdrop. */
+.bg-vault-grid {
+  background-image:
+    linear-gradient(rgba(245, 241, 234, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(245, 241, 234, 0.025) 1px, transparent 1px);
+  background-size: 64px 64px;
+  -webkit-mask-image: radial-gradient(70rem 50rem at 50% 0%, #000 30%, transparent 75%);
+  mask-image: radial-gradient(70rem 50rem at 50% 0%, #000 30%, transparent 75%);
+}
+
+/* Film grain — the "noise" of fake reviews. */
+.grain {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+}
+
+/* Editorial serif voice — the human testimony. */
+.font-serif {
+  font-family: var(--font-serif), Georgia, "Times New Roman", serif;
+}
+
 ::selection {
   background: rgba(245, 177, 76, 0.25);
+  color: #fff;
+}
+
+/* Honor reduced-motion: kill long transitions/animations. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
 }
