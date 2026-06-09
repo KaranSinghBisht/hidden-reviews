@@ -7,8 +7,8 @@ export interface SearchSpec {
   label: string;
   query: string;
   includeDomains?: string[];
-  /** Defaults to "lite" (fast snippets); the agent favours breadth. */
-  depth?: "lite" | "deep";
+  /** True for the one angle that should fetch FULL page content (Nimble deep). */
+  deep?: boolean;
 }
 
 const PlanSchema = z.object({
@@ -27,6 +27,7 @@ const PlanSchema = z.object({
         label: z.string(),
         query: z.string(),
         includeDomains: z.array(z.string()).optional(),
+        deep: z.boolean().optional(),
       }),
     )
     .min(4)
@@ -36,14 +37,16 @@ const PlanSchema = z.object({
 const SYSTEM = `You plan web research to surface the HONEST, BURIED opinions about something — the candid takes real people leave in communities, on review sites, and in long-form reviews that polished top-of-search pages hide.
 
 Given a subject, output 4-5 web searches, each a DISTINCT angle / source type. Be BALANCED: seek genuine praise and genuine criticism, not just complaints. Tailor the angles to what the subject IS:
-- product / gadget → Reddit candid threads, Trustpilot or Sitejabber, long-term "after N months" review blogs, enthusiast communities
-- restaurant / place → Reddit local & city subs, Yelp, candid blog write-ups, local-news roundups
-- movie / show → Letterboxd, the relevant Reddit sub, audience (not professional-critic) reviews, fan forums
-- company / service → Reddit, Trustpilot, customer-experience forums, employee/customer complaint threads
+- product / gadget → Reddit candid threads, Amazon customer-review pages, Trustpilot or Sitejabber, long-term "after N months" review blogs, YouTube reviews, enthusiast communities
+- restaurant / place → Reddit local & city subs, Yelp, TripAdvisor, candid blog write-ups, local-news roundups
+- movie / show → Letterboxd, IMDb user reviews, Metacritic user reviews, the relevant Reddit sub, fan forums
+- company / service → Reddit, Trustpilot, Glassdoor (what employees say), G2 or Capterra for software, customer-experience forums, complaint threads
+- be creative beyond these lists when the subject calls for it (e.g. Untappd for a brewery, Goodreads for a book).
 
 Rules:
 - Write NATURAL search queries. Do NOT bolt on "complaints problems" — let the angle and target domain do the work, and keep queries neutral enough to surface BOTH sides.
-- Use includeDomains to target specific sites, e.g. ["reddit.com"], ["trustpilot.com","sitejabber.com"], ["letterboxd.com"], ["yelp.com"].
+- Use includeDomains to target specific sites, e.g. ["reddit.com"], ["amazon.com"], ["trustpilot.com","sitejabber.com"], ["letterboxd.com","imdb.com"], ["yelp.com","tripadvisor.com"], ["glassdoor.com"], ["g2.com","capterra.com"].
+- Set deep: true on EXACTLY ONE angle — the one whose results are long-form, scrape-friendly pages (review blogs, magazine reviews, editorial write-ups). Its full page text will be extracted. NEVER mark reddit, amazon, or social sites deep (they block scrapers); leave deep off domain-restricted community angles.
 - Make each of the 4-5 searches a genuinely different angle — different communities, different source types, different facets (reliability, value, long-term, support).`;
 
 /**
@@ -87,6 +90,7 @@ function defaultPlan(query: string): SearchSpec[] {
     {
       label: "Long-term & in-depth",
       query: `${query} long term honest review`,
+      deep: true,
     },
     {
       label: "Forums & communities",

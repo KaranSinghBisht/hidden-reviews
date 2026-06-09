@@ -8,12 +8,12 @@ const STEPS = [
   {
     tool: "Claude",
     title: "Plan the angles",
-    body: "Claude reads the subject and tailors search angles to it — Letterboxd for a film, Trustpilot for a product, local subreddits for a restaurant.",
+    body: "Claude reads the subject and tailors search angles to it — Amazon reviews and Reddit for a product, Letterboxd and IMDb for a film, TripAdvisor and local subreddits for a restaurant, Glassdoor and G2 for a company.",
   },
   {
     tool: "Nimble",
     title: "Search the live web",
-    body: "Nimble runs every angle in parallel across Reddit, Trustpilot, forums, and the long tail — the candid sources page one buries.",
+    body: "Nimble runs every angle in parallel across the candid sources page one buries — and deep-reads the long-form angle, extracting full page text for the quotes that matter.",
   },
   {
     tool: "Claude",

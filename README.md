@@ -69,9 +69,10 @@ flowchart LR
 The engine is built on the **Nimble Search API** (`/v1/search`):
 
 - **Multi-angle search + a feedback loop** — 4–5 model-planned queries, then an assess step that names the coverage gap and fires a follow-up (~6 searches per dig)
-- **Domain targeting** — `include_domains` to hit Reddit, Trustpilot, Letterboxd, Yelp specifically
-- **Adaptive depth** — `search_depth: lite` drives the real-time path; `deep` full-page extraction is supported in the client
+- **Domain targeting** — `include_domains` to hit Reddit, Amazon review pages, Trustpilot, Letterboxd, TripAdvisor, Glassdoor specifically
+- **Adaptive depth** — `search_depth: lite` drives the breadth angles; the one long-form angle runs `deep` with `output_format: markdown` full-page extraction, so the best quotes come from full text, not snippets
 - **Parallel + resilient** — `Promise.allSettled`, per-search timeouts; one failing angle never sinks the dig
+- **The right tool for the job** — we evaluated Nimble's WSA focus modes and custom agents (`amazon_serp`, `shopping`, `location`): they return merchant listings and place data rather than candid review text, so the agent targets the review-bearing pages directly instead
 
 ## Use it from your AI (MCP)
 

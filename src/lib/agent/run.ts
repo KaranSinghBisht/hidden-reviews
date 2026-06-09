@@ -115,7 +115,9 @@ export async function runDigAgent(
   // trace shows the REAL Nimble queries so "watch it work" means it.
   const sg = start(
     "Searching the live web via Nimble",
-    specs.map((s) => `“${s.query}”`).join("  ·  "),
+    specs
+      .map((s) => `“${s.query}”${s.deep ? " · deep read" : ""}`)
+      .join("  ·  "),
   );
   const gathered = await gather(specs);
   if (gathered.length === 0) {

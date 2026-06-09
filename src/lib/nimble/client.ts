@@ -22,6 +22,8 @@ export interface SearchOpts {
   maxResults?: number;
   /** Abort the search after this long so one angle can't hang the dig. */
   timeoutMs?: number;
+  /** Page-content format for deep extraction (markdown is cleanest for LLMs). */
+  outputFormat?: "markdown";
 }
 
 type Raw = Record<string, unknown>;
@@ -83,6 +85,7 @@ export async function nimbleSearch(
     excludeDomains,
     maxResults = 10,
     timeoutMs = 30_000,
+    outputFormat,
   } = opts;
 
   const body: Record<string, unknown> = {
@@ -92,6 +95,7 @@ export async function nimbleSearch(
   };
   if (includeDomains?.length) body.include_domains = includeDomains;
   if (excludeDomains?.length) body.exclude_domains = excludeDomains;
+  if (outputFormat) body.output_format = outputFormat;
 
   const res = await fetch(SEARCH_URL, {
     method: "POST",
