@@ -7,7 +7,9 @@ export default function Home() {
   return (
     <main>
       <Hero />
-      <CaseWall />
+      <div id="archive" className="scroll-mt-20">
+        <CaseWall />
+      </div>
       <div id="how-it-works" className="scroll-mt-20">
         <HowItWorks />
       </div>
