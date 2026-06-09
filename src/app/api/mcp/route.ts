@@ -2,6 +2,10 @@ import { createMcpHandler } from "mcp-handler";
 import { z } from "zod";
 import { dig } from "@/lib/dig/dig";
 import { formatDigAsText } from "@/lib/dig/format";
+import { getCached } from "@/lib/dig/cache";
+import { getSeed } from "@/lib/dig/seeds";
+import { isMockMode } from "@/lib/env";
+import { clientIp, rateLimited, RATE_LIMIT_MESSAGE } from "@/lib/rate-limit";
 
 /**
  * hidden.reviews as a remote MCP server (Streamable HTTP).
@@ -32,6 +36,32 @@ const handler = createMcpHandler(
   { basePath: "/api", maxDuration: 60 },
 );
 
-export { handler as GET, handler as POST, handler as DELETE };
+/** Pull the tool query out of a JSON-RPC tools/call body, if that's what this is. */
+async function toolCallQuery(req: Request): Promise<string | null> {
+  try {
+    const body = (await req.clone().json()) as {
+      method?: string;
+      params?: { arguments?: { query?: unknown } };
+    };
+    if (body?.method !== "tools/call") return null;
+    const q = body.params?.arguments?.query;
+    return typeof q === "string" ? q.trim() : null;
+  } catch {
+    return null; // not JSON / not a tool call — let the handler respond
+  }
+}
+
+/** Tool calls that would trigger a LIVE dig count against the credit limiter. */
+async function guardedPost(req: Request): Promise<Response> {
+  const query = await toolCallQuery(req);
+  const live =
+    query !== null && !getCached(query) && !getSeed(query) && !isMockMode();
+  if (live && rateLimited(clientIp(req))) {
+    return Response.json({ error: RATE_LIMIT_MESSAGE }, { status: 429 });
+  }
+  return handler(req);
+}
+
+export { handler as GET, guardedPost as POST, handler as DELETE };
 
 export const maxDuration = 60;

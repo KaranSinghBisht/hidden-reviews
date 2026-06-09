@@ -108,7 +108,9 @@ export async function nimbleSearch(
   }
 
   const data = await res.json();
+  // Live-web URLs are untrusted input: only http(s) ever enters the pipeline,
+  // so nothing downstream (synthesis, links) can carry a javascript: scheme.
   return extractItems(data)
     .map(mapItem)
-    .filter((r) => r.url.length > 0);
+    .filter((r) => /^https?:\/\//i.test(r.url));
 }

@@ -4,6 +4,7 @@ import { getSeed } from "@/lib/dig/seeds";
 import { isMockMode } from "@/lib/env";
 import { mockDig } from "@/lib/mock/fixtures";
 import { runDigAgent } from "@/lib/agent/run";
+import { clientIp, rateLimited, RATE_LIMIT_MESSAGE } from "@/lib/rate-limit";
 
 // The agent runs several searches + synthesis; give it room under the cap.
 export const maxDuration = 60;
@@ -34,16 +35,23 @@ export async function POST(req: Request) {
   }
   const query = parsed.data.query;
 
+  // Instant paths (cached / seeded / mock) are free; only live agent runs burn
+  // Nimble + Claude credits, so only those count against the abuse limiter.
+  const fast = getCached(query) ?? getSeed(query);
+  const live = !fast && !isMockMode();
+  if (live && rateLimited(clientIp(req))) {
+    return Response.json({ error: RATE_LIMIT_MESSAGE }, { status: 429 });
+  }
+
   const encoder = new TextEncoder();
   const stream = new ReadableStream({
     async start(controller) {
       const send = (obj: unknown) =>
         controller.enqueue(encoder.encode(`data: ${JSON.stringify(obj)}\n\n`));
       try {
-        const fast = getCached(query) ?? getSeed(query);
         if (fast) {
           send({ type: "result", result: fast });
-        } else if (isMockMode()) {
+        } else if (!live) {
           send({ type: "result", result: await mockDig(query) });
         } else {
           const result = await runDigAgent(query, (steps) =>

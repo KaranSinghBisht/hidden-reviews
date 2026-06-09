@@ -55,14 +55,29 @@ export default function CasePage({
       <div className="mt-5">
         {error && !result ? (
           <div className="mx-auto max-w-3xl px-4 sm:px-6">
-            <div className="rounded-2xl border border-negative/30 bg-negative/10 p-6">
-              <p className="text-sm text-negative">{error}</p>
-              <Link
-                href="/"
-                className="mt-3 inline-block text-sm text-cream underline-offset-4 hover:underline"
-              >
-                Back to the Archive
-              </Link>
+            <div className="rounded-2xl border border-line bg-surface/40 p-6 sm:p-8">
+              <p className="font-mono text-[11px] uppercase tracking-widest text-negative">
+                Case file sealed
+              </p>
+              <h1 className="mt-2 font-serif text-3xl text-cream">
+                This investigation couldn&apos;t be completed.
+              </h1>
+              <p className="mt-2 text-sm leading-relaxed text-muted">{error}</p>
+              <div className="mt-6 flex flex-wrap items-center gap-3">
+                <button
+                  type="button"
+                  onClick={() => window.location.reload()}
+                  className="rounded-full border border-accent/40 bg-accent/10 px-4 py-2 font-mono text-[11px] uppercase tracking-widest text-accent transition-colors hover:bg-accent/20"
+                >
+                  Reopen the investigation
+                </button>
+                <Link
+                  href="/"
+                  className="rounded-full border border-line px-4 py-2 font-mono text-[11px] uppercase tracking-widest text-muted transition-colors hover:text-cream"
+                >
+                  Browse cases on file
+                </Link>
+              </div>
             </div>
           </div>
         ) : result ? (

@@ -1,80 +1,94 @@
-# Demo video script — hidden.reviews (~2 min)
+# Demo video script — hidden.reviews (~1:55)
 
-Goal: in 2 minutes a judge should *get it*, *believe it's real*, and *remember it*.
+Goal: in under two minutes a judge should *get it*, *believe it's real*, and *remember it*.
 hidden.reviews is a **declassified intelligence archive for the honest web** — an AI
-investigator that digs up the buried testimony marketing hides, and files it. Talk
-over a screen recording. Keep it fast.
+investigator that digs up the buried testimony marketing hides, and files it.
+Voiceover over a screen recording. Total VO ≈ 230 words — comfortable at a calm pace.
 
-## ⚠️ Before you hit record (read this)
-- **Warm the site up first.** The first live search after the site has been idle can
-  be slow (serverless cold start, ~60s). 1–2 minutes before recording, run **one
-  throwaway live search** (e.g. "AirPods Pro 2") and let it finish. After that, live
-  searches land in ~25s.
-- For the live beat, pick a **fresh** product you have *not* searched yet (so it runs
-  live, not from server cache) — e.g. "Sony WH-1000XM5". The example case files
-  (Dyson V15 · Dune Part Two · Joe's Pizza NYC) are **instant**.
-- Open https://hidden-reviews.vercel.app in a clean window. **Keep the URL bar
-  visible** — it reinforces the domain (every case is `hidden.reviews/<slug>`).
-- Optional: Claude Desktop with the MCP server added (snippet at the bottom).
-- Record at 1080p+, no dead air. You can **speed-ramp the ~25s live search** in editing.
+## ⚠️ Before you hit record
 
-## Shot-by-shot
+1. **Warm the site.** 1–2 min before recording, run one throwaway live search
+   (e.g. "AirPods Pro 2") and let it finish. First call after idle can take ~60s
+   (cold start); after that, live digs land in ~25s.
+2. For the live beat use a **fresh** term you have NOT searched (cached terms return
+   instantly and skip the live stream). Suggested: **"Sony WH-1000XM5"**.
+   Already burned: AirPods Pro 2 (warm-up), Anker 737, Sennheiser Momentum 4, Bose QC Ultra.
+3. Record at 1080p+, clean browser window. URL bar optional — if visible, fine,
+   but **never end the video on it**; end on the wordmark.
+4. Prepare two B-roll screenshots for the hook: a glossy 5★ product page, and a
+   Google results page 3 with a candid Reddit thread.
+5. If the live dig errors on camera: click "Reopen the investigation" once; if it
+   fails again, open a case on file and say "here's one the agent filed earlier."
 
-**[0:00–0:12] The problem (hook)**
-> "The first reviews you ever see are marketing. The honest ones — 'I owned this two
-> years, here's what broke' — are buried pages deep. And asking an AI just summarizes
-> the same shiny surface."
-- B-roll: a glowing 5★ product page, then a Google results page 3 with a candid Reddit thread.
+## Shot-by-shot (durations + exact voiceover)
 
-**[0:12–0:22] The reveal — The Archive**
-> "hidden.reviews. Reviews are usually hidden. Not here."
-- Land on the homepage. Let the serif hero land, then the **wall of redacted case files**.
-- **Hover a case card** — the censor bar wipes away to reveal the buried quote underneath.
-  (Do this — it's the signature interaction.)
+**[0:00–0:10] THE HOOK — B-roll (10s)**
+Show: glossy 5★ product page → cut to Google page 3 with a buried Reddit thread.
+> VO: "The first reviews you see are marketing. The honest ones — 'I've owned this
+> two years, here's what broke' — are buried pages deep. And your AI assistant?
+> It only summarizes the shiny surface."
 
-**[0:22–0:40] Open a case (instant)**
-- Click **Dyson V15** → the dossier opens instantly.
-> "Every case is a dossier: an honest verdict, a trust score, what the marketing won't
-> tell you — and the buried testimony, declassified."
-- Scroll: the **redaction bars wipe** as quotes come into view. **Click a
-  'Read it on reddit.com →' link** so the real thread opens. (Credibility beat — do it.)
-- Point at the **Marketing vs. reality** gap bars.
+**[0:10–0:22] THE REVEAL — the Archive (12s)**
+Show: land on the homepage; let the serif hero breathe for 2s; scroll to the wall
+of case files; **hover two cards slowly** so the censor bars wipe away on camera.
+> VO: "hidden dot reviews. A declassified archive for the honest web. Every case
+> file is redacted — until you look."
 
-**[0:40–1:06] The money shot — watch it work LIVE**
-- Back to the Archive. Type a fresh product ("Sony WH-1000XM5") and hit **Dig**.
-- The URL becomes **hidden.reviews/sony-wh-1000xm5** and the **live investigation streams**.
-> "Type anything and it runs live. This is a research agent — it plans angles for *this*
-> subject, searches the live web in parallel via Nimble, reads what came back, finds the
+**[0:22–0:40] OPEN A CASE — instant dossier (18s)**
+Show: click **Dyson V15** → dossier opens instantly. Scroll steadily: trust score 62,
+verdict, "What they don't tell you", redaction bars wiping as quotes enter view.
+**Click one "Read it on reddit.com →" link** and show the real thread for a beat.
+> VO: "Every case is a dossier: an honest verdict, a trust score, what the marketing
+> won't tell you — and the buried testimony, declassified. Every quote links to the
+> real page it came from. Nothing is generated."
+
+**[0:40–0:57] THE MONEY SHOT — watch it dig, live (17s on screen; speed-ramped)**
+Show: back to the Archive. Type **Sony WH-1000XM5**, hit Dig. The URL becomes
+`/sony-wh-1000xm5` and the live investigation streams. Run at 1× for the first two
+steps — **the actual Nimble queries appear on screen under "Searching the live web
+via Nimble"** — then 2× through the rest, back to 1× as the dossier lands.
+> VO: "Type anything, and a research agent goes to work — live. It plans search
+> angles for this exact product, fires them in parallel on the live web through
+> Nimble — those are the real queries — reads what came back, finds the coverage
 > gap, and digs again."
-- Point at the streaming steps: Planning → Searching → **Assessing coverage** →
-  **Digging deeper** → Reading.
 
-**[1:06–1:26] The filed verdict — with receipts**
-- The dossier lands (note the green **LIVE · NIMBLE** badge).
-> "An honest verdict and a trust score — and every quote links to its real source.
-> Nothing is hallucinated; the URLs come straight from the live Nimble search."
-- Scroll to **"How the agent dug"** — the investigation log:
-  **6 Nimble searches · N live sources · M buried takes**, then the 5-step trace.
+**[0:57–1:20] THE FILED VERDICT — receipts (23s)**
+Show: the dossier lands with the green **LIVE · NIMBLE** badge. Linger on verdict +
+trust score; scroll the marketing-vs-reality gap bars; stop on **"How the agent
+dug"**: the stat banner — N Nimble searches · N live sources · N buried takes —
+and the step-by-step trace.
+> VO: "Minutes old, straight off the live web. An honest verdict, the gap between
+> the marketing and reality — and the receipts: every search the agent ran, every
+> source it read. The URLs come straight from Nimble results, so the agent can't
+> invent a source even if it wanted to."
 
-**[1:26–1:46] It's also an MCP server**
-- Scroll to **"Give your AI clearance"** (or switch to Claude Desktop).
-> "LLMs are blind to buried reviews. hidden.reviews is a remote MCP server — so Claude,
-> Cursor, or ChatGPT can see the honest web, right inside your workflow."
-- If using Claude Desktop: ask *"Use hidden reviews to check the Sony WH-1000XM5."* —
-  show the tool call + result.
+**[1:20–1:27] THE METHOD — flash (7s)**
+Show: scroll the "How the investigation works" timeline — the five steps with
+NIMBLE and CLAUDE chips, the feedback-loop tag visible.
+> VO: "Plan, search, assess, dig deeper, file. A real agent loop — not one prompt."
 
-**[1:46–2:00] Close on the domain**
-> "Reviews are usually hidden. Not here. hidden dot reviews."
-- Show the wordmark / URL bar. End.
+**[1:27–1:42] GIVE YOUR AI CLEARANCE — MCP (15s)**
+Show: the "Give your AI clearance to the honest web" section; let the terminal
+animation play a full tool call; flash the mcp.json snippet.
+> VO: "And it's a remote MCP server. Add one URL, and Claude, Cursor, or ChatGPT
+> can pull the honest, buried reviews they're blind to — right inside your chat."
+
+**[1:42–1:52] CLOSE — the domain (10s)**
+Show: back to the Archive; slow push toward the header wordmark **hidden.reviews**.
+Hold on the wordmark. End there — not on the browser URL bar.
+> VO: "Reviews are usually hidden. Not here. hidden dot reviews — built for
+> DeveloperWeek New York."
 
 ## One-liner if a judge asks "how?"
+
 Claude plans 4–5 tailored search angles → Nimble searches the live web in parallel
-(~6 searches, ~35–44 sources) → the agent assesses its own coverage and re-searches the
-gap → Claude synthesises with index-grounded citations (so sources can't be faked).
+(~6 searches, 30–44 sources) → the agent assesses its own coverage and re-searches
+the gap → Claude synthesizes with index-grounded citations (sources can't be faked).
 Next.js on Vercel; also a remote MCP server. Every case is a shareable
 `hidden.reviews/<slug>` URL.
 
-## MCP config for the demo (Claude Desktop / Cursor)
+## MCP config (Claude Desktop / Cursor)
+
 ```json
 {
   "mcpServers": {
@@ -84,6 +98,10 @@ Next.js on Vercel; also a remote MCP server. Every case is a shareable
 ```
 
 ## Recording tips
-- Lead with instant case files; do exactly **one** live search (and warm the site first).
-- Keep it under 2:00 — judges skim. The redaction reveals and the live trace are the stars.
-- End on the domain.
+
+- Seeded case files (Dyson V15 · Dune Part Two · Joe's Pizza NYC · Notion ·
+  Peloton Bike+) are always instant — lead with one.
+- Exactly **one** live search on camera, site warmed, fresh term.
+- Hover the case cards *slowly* — the redaction wipe is the signature; give it air.
+- The live-dig speed ramp does the pacing work: 1× → 2× → 1× on landing.
+- No dead air; cut tight between beats. End on the wordmark.

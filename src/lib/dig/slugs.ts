@@ -13,9 +13,12 @@ export function slugify(query: string): string {
     .replace(/^-+|-+$/g, "");
 }
 
-/** Slug → best-effort human query for live digs. "sony-wh-1000xm5" → "sony wh 1000xm5". */
+/** Slug → best-effort human query for live digs. "sony-wh-1000xm5" → "Sony Wh 1000xm5". */
 export function deslugify(slug: string): string {
-  return slug.replace(/-+/g, " ").trim();
+  return slug
+    .replace(/-+/g, " ")
+    .trim()
+    .replace(/\b[a-z]/g, (c) => c.toUpperCase());
 }
 
 /** Stable, deterministic case number for the dossier chrome. */

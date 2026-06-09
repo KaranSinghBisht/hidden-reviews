@@ -111,16 +111,20 @@ export async function runDigAgent(
   const specs = await planSearches(query);
   finish(sp, specs.map((s) => s.label).join(" · "));
 
-  // 2) Gather — run every targeted search in parallel.
+  // 2) Gather — run every targeted search in parallel. While they run, the
+  // trace shows the REAL Nimble queries so "watch it work" means it.
   const sg = start(
-    "Searching the live web",
-    specs.map((s) => s.label).join(" · "),
+    "Searching the live web via Nimble",
+    specs.map((s) => `“${s.query}”`).join("  ·  "),
   );
   const gathered = await gather(specs);
   if (gathered.length === 0) {
     throw new Error("No live sources found for that query.");
   }
-  finish(sg, `${gathered.length} candid sources from ${specs.length} searches`);
+  finish(
+    sg,
+    `${gathered.length} candid sources from ${specs.length} Nimble searches`,
+  );
 
   // 2b) Feedback loop: assess coverage, then dig deeper with a full-content read.
   let sources = gathered;
@@ -129,7 +133,7 @@ export async function runDigAgent(
   const assessment = await assess(query, gathered);
   if (assessment?.deepQuery) {
     finish(sa, assessment.coverageNote);
-    const sd = start("Digging deeper to fill the gap", assessment.deepQuery);
+    const sd = start("Digging deeper via Nimble", `“${assessment.deepQuery}”`);
     try {
       const followUp = await nimbleSearch(assessment.deepQuery, {
         depth: "lite",

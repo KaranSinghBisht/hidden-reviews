@@ -43,6 +43,8 @@ export function BuriedTestimony({
 }) {
   const sm = sentimentMeta[review.sentiment];
   const Icon = ICON[review.sourceKind] ?? Globe;
+  // Live-web URLs are untrusted — only ever link out to http(s).
+  const safeUrl = /^https?:\/\//i.test(review.url) ? review.url : null;
 
   return (
     <article className="rounded-2xl border border-line bg-surface/40 p-5 transition-colors hover:border-line-strong">
@@ -76,15 +78,17 @@ export function BuriedTestimony({
             {buriedReasonLabel(reason)}
           </Badge>
         ))}
-        <a
-          href={review.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="ml-auto inline-flex items-center gap-1 font-mono text-[11px] uppercase tracking-widest text-muted transition-colors hover:text-accent"
-        >
-          Read it on {host(review.url)}
-          <ArrowUpRight className="h-3.5 w-3.5" />
-        </a>
+        {safeUrl && (
+          <a
+            href={safeUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ml-auto inline-flex items-center gap-1 font-mono text-[11px] uppercase tracking-widest text-muted transition-colors hover:text-accent"
+          >
+            Read it on {host(safeUrl)}
+            <ArrowUpRight className="h-3.5 w-3.5" />
+          </a>
+        )}
       </div>
     </article>
   );
