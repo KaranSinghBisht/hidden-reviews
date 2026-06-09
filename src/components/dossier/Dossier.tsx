@@ -1,16 +1,16 @@
 "use client";
 
-import type { ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 import { motion } from "motion/react";
+import { AlertTriangle, Check, X, type LucideIcon } from "lucide-react";
 import { TrustMeter } from "@/components/TrustMeter";
-import { HiddenInsights } from "@/components/HiddenInsights";
 import { SentimentGapBar } from "@/components/SentimentGapBar";
 import { BuriedTestimony } from "./BuriedTestimony";
 import { InvestigationLog } from "./InvestigationLog";
 import { caseNo } from "@/lib/dig/slugs";
 import { sentimentMeta } from "@/lib/sentiment";
 import { rise, inView } from "@/lib/motion";
-import type { DigResult } from "@/lib/types";
+import type { DigResult, Sentiment } from "@/lib/types";
 
 function SectionTitle({ children }: { children: ReactNode }) {
   return (
@@ -48,8 +48,56 @@ function Chip({ children, className }: { children: ReactNode; className: string 
   );
 }
 
+const GLANCE_ICON: Record<Sentiment, LucideIcon> = {
+  positive: Check,
+  mixed: AlertTriangle,
+  negative: X,
+};
+
+/** The serif verdict, clamped for glanceability with an expand toggle. */
+function Verdict({ text }: { text: string }) {
+  const [open, setOpen] = useState(false);
+  const long = text.length > 170;
+  return (
+    <div>
+      <p
+        className={`mt-3 font-serif text-lg leading-relaxed text-cream/90 ${
+          long && !open ? "line-clamp-2" : ""
+        }`}
+      >
+        {text}
+      </p>
+      {long && (
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          className="mt-1.5 font-mono text-[10px] uppercase tracking-widest text-accent/90 transition-colors hover:text-accent"
+        >
+          {open ? "Show less" : "Read the full verdict"}
+        </button>
+      )}
+    </div>
+  );
+}
+
+function Stat({ n, label }: { n: number | string; label: string }) {
+  return (
+    <div className="bg-ink/60 px-4 py-3 text-center">
+      <div className="font-mono text-2xl font-semibold text-accent">{n}</div>
+      <div className="mt-0.5 font-mono text-[10px] uppercase tracking-widest text-faint">
+        {label}
+      </div>
+    </div>
+  );
+}
+
 type Mode = "live" | "file";
 
+/**
+ * The case file. The cover sheet answers everything in one glance — score,
+ * consensus, the things marketing hides, the receipts — and the sections
+ * below hold the depth for whoever wants it.
+ */
 export function Dossier({
   result,
   slug,
@@ -76,6 +124,7 @@ export function Dossier({
           </span>
           <StatusChip result={result} mode={mode} />
         </div>
+
         <div className="bg-beam p-6 sm:p-8">
           <div className="flex flex-col gap-6 sm:flex-row sm:items-center">
             <TrustMeter score={result.trustScore} sentiment={result.overallSentiment} />
@@ -89,22 +138,47 @@ export function Dossier({
               <h1 className="mt-2 text-2xl font-semibold tracking-tight text-cream sm:text-3xl">
                 {result.query}
               </h1>
-              <p className="mt-3 font-serif text-lg leading-relaxed text-cream/90 sm:text-xl">
-                {result.verdict}
-              </p>
+              <Verdict text={result.verdict} />
             </div>
           </div>
+
+          {result.hiddenInsights.length > 0 && (
+            <div className="mt-7 border-t border-line/60 pt-5">
+              <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.2em] text-muted">
+                What they don&rsquo;t tell you
+              </p>
+              <ul className="mt-3 space-y-2.5">
+                {result.hiddenInsights.map((insight, i) => {
+                  const Icon = GLANCE_ICON[insight.sentiment];
+                  return (
+                    <li key={i} className="flex items-start gap-2.5">
+                      <Icon
+                        className={`mt-0.5 h-4 w-4 shrink-0 ${sentimentMeta[insight.sentiment].text}`}
+                      />
+                      <span className="flex-1 text-sm leading-snug text-cream/90">
+                        {insight.point}
+                      </span>
+                      <span className="shrink-0 pt-0.5 font-mono text-[10px] uppercase tracking-wider text-faint">
+                        ×{insight.supportCount} sources
+                      </span>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          )}
+
+          {typeof result.searchesRun === "number" && (
+            <div className="mt-7 grid grid-cols-3 gap-px overflow-hidden rounded-xl border border-line bg-line">
+              <Stat n={result.searchesRun} label="Nimble searches" />
+              <Stat n={result.sourcesScanned} label="live sources" />
+              <Stat n={result.buriedReviews.length} label="buried takes" />
+            </div>
+          )}
         </div>
       </motion.header>
 
       <div className="mt-10 space-y-10">
-        {result.hiddenInsights.length > 0 && (
-          <motion.section {...inView} variants={rise}>
-            <SectionTitle>What they don’t tell you</SectionTitle>
-            <HiddenInsights insights={result.hiddenInsights} />
-          </motion.section>
-        )}
-
         {result.sentimentGaps.length > 0 && (
           <motion.section {...inView} variants={rise}>
             <SectionTitle>Marketing vs. reality</SectionTitle>
@@ -129,12 +203,7 @@ export function Dossier({
 
         <motion.section {...inView} variants={rise}>
           <SectionTitle>How the agent dug</SectionTitle>
-          <InvestigationLog
-            steps={result.agentSteps ?? []}
-            searchesRun={result.searchesRun ?? 0}
-            sourcesScanned={result.sourcesScanned}
-            buried={result.buriedReviews.length}
-          />
+          <InvestigationLog steps={result.agentSteps ?? []} />
         </motion.section>
       </div>
     </article>

@@ -2,69 +2,80 @@
 
 **Reviews are usually hidden. Not here.**
 
-The top of every search result is polished, SEO-optimised marketing. The honest takes — the ones real people leave on Reddit, Trustpilot, niche forums, and long-form blogs — are buried pages deep, and a quick question to ChatGPT only skims the surface. **hidden.reviews** is an AI research agent that digs them out: it sees the live web, reads the candid sources, and gives you the honest verdict before you buy, book, or watch.
+The top of every search result is polished, SEO-optimised marketing. The honest takes — the ones real people leave on Reddit, Trustpilot, niche forums, and long-form blogs — are buried pages deep, and asking an AI chatbot just summarises the same shiny surface. **hidden.reviews** is an AI research agent that digs them out: it sees the live web, reads the candid sources, and files an honest, fully-sourced verdict before you buy, book, or watch.
 
 🔗 **Live:** https://hidden-reviews.vercel.app · 🔌 **MCP server:** `https://hidden-reviews.vercel.app/api/mcp`
 
-Built for **DeveloperWeek New York 2026** — name.com *Domain Roulette* (`hidden.reviews`) + Nimble *agentic live-web app*.
+## What you get
 
----
+Search any product, place, company, restaurant, or movie. The agent files a **dossier**:
 
-## What it does
-
-Search any product, place, company, restaurant, or movie. The agent returns:
-
-- an **honest verdict** + a 0–100 **trust score**
-- **what the marketing doesn't tell you** (sourced)
+- an **honest verdict** + a 0–100 **trust score** — readable at a glance
+- **what the marketing doesn't tell you**, with per-claim source counts
 - **marketing vs. reality** sentiment gaps
-- **buried reviews** — candid quotes with the real source URL
+- **buried testimony** — candid quotes, each linked to its real source URL
+- the **investigation log** — every search the agent ran, streamed live as it works
 
-…and it streams its reasoning live so you watch it work.
+Every investigation becomes a case in **The Archive** and lives at a shareable `/<slug>` URL.
 
-## How the agent works (it's not one API call)
+## How the agent works
 
-```
-query
-  │
-  ├─ 1. PLAN     Claude reasons about the subject and designs 4–5 distinct
-  │              search angles, tailored to what it is:
-  │                product   → Reddit · Trustpilot/Sitejabber · long-term blogs
-  │                movie     → Letterboxd · r/movies · audience reviews
-  │                restaurant→ Yelp · local Reddit · candid write-ups
-  │
-  ├─ 2. SEARCH   Runs every angle against Nimble in PARALLEL — domain-targeted
-  │              live-web searches — then dedupes (~35 sources per dig).
-  │
-  ├─ 3. ASSESS   Reads what came back, names the biggest coverage GAP, and
-  │   ↺ LOOP     fires a follow-up search to fill it (observe → decide → act).
-  │
-  ├─ 4. READ     Claude synthesises the candid sources into a structured,
-  │              honest verdict. Cites sources by INDEX; real URLs are rebuilt
-  │              in code, so a source can never be hallucinated.
-  │
-  └─ 5. STREAM   Every step streams to the UI (SSE) — you watch it work.
+Not one API call — a plan → search → assess → re-search → synthesize loop:
+
+```mermaid
+flowchart TD
+    Q(["query"]) --> P["PLAN<br/>Claude designs 4–5 search angles tailored to the subject<br/><i>product → Reddit · Trustpilot · long-term blogs<br/>movie → Letterboxd · audience reviews</i>"]
+    P --> S["SEARCH<br/>all angles in parallel via Nimble —<br/>domain-targeted live-web searches, deduped<br/>(~35–44 sources per dig)"]
+    S --> A{"ASSESS<br/>Claude reads the haul:<br/>where is the coverage gap?"}
+    A -->|gap found| D["DIG DEEPER<br/>follow-up Nimble search on the gap"]
+    D --> Y
+    A -->|coverage solid| Y["SYNTHESIZE<br/>Claude writes the verdict,<br/>citing every quote by source index"]
+    Y --> F(["dossier<br/>trust score · gaps · buried quotes with real URLs"])
 ```
 
-Each step is visible in the result's **"How the agent dug"** trace.
+Every step streams to the UI over Server-Sent Events — you watch the real Nimble queries fire as it digs.
 
-## Using Nimble heavily
+## Architecture
 
-The engine is built on the **Nimble Search API** (`/v1/search`) and uses it as a real toolbox, not a single call:
-
-- **Multi-angle search + a feedback loop** — 4–5 model-planned queries, then an `assess` step that names the coverage gap and fires a follow-up (~6 searches, ~35–41 sources per dig)
-- **Domain targeting** — `include_domains` to hit Reddit, Trustpilot, Letterboxd, Yelp… specifically
-- **Adaptive depth** — `search_depth` `lite` drives the real-time path for speed; `deep` full-page extraction is supported in the client
-- **Parallel + resilient** — `Promise.allSettled`, per-search timeouts; one angle failing never sinks the dig
+```mermaid
+flowchart LR
+    subgraph clients [Clients]
+        UI["Next.js UI<br/>The Archive"]
+        AI["Claude · Cursor · ChatGPT<br/>MCP clients"]
+    end
+    subgraph vercel [Vercel]
+        SSE["/api/dig/stream<br/>SSE"]
+        MCP["/api/mcp<br/>Streamable HTTP"]
+        AGENT["agent runtime<br/>plan · gather · assess · synthesize"]
+        CACHE[("cache +<br/>pre-captured case files")]
+    end
+    UI --> SSE --> AGENT
+    AI --> MCP --> AGENT
+    AGENT <--> NIMBLE[("Nimble Search API<br/>the live web")]
+    AGENT <--> CLAUDE[("Claude<br/>structured synthesis")]
+    AGENT --> CACHE
+```
 
 ## Honest by construction
 
-- **No hallucinated sources.** Claude references each source by index; `agent/run.ts` rebuilds the real URL/host from the Nimble result.
-- **Live vs. demo is labelled.** Real digs show a `Live · Nimble` badge; the showcase queries are pre-captured *real* digs (so a demo never waits on — or fails — a live call), and everything else runs fully live.
-- **Graceful, never a 500.** If synthesis is slow, the agent returns the raw buried sources it already pulled.
+- **No hallucinated sources.** Claude cites sources only by index; the real URL is rebuilt in code from the Nimble result (`src/lib/agent/run.ts`). The model physically cannot invent a link.
+- **Untrusted input stays untrusted.** Only `http(s)` URLs enter the pipeline, quotes render as escaped text, and the synthesis prompt treats page content as data, never as instructions.
+- **Live vs. filed is labelled.** Live digs carry a `Live · Nimble` badge; showcase cases are pre-captured *real* digs (genuine results, saved so the most-clicked queries return instantly).
+- **Degrades, never 500s.** If synthesis runs long, the agent returns the raw buried sources it already pulled.
+- **Credit-safe.** Live digs are rate-limited per IP; cached and filed cases are always free and instant.
 
-## As an MCP server
+## Nimble as a toolbox, not a single call
 
-hidden.reviews is also a remote **MCP server**, so Claude / Cursor / ChatGPT can call it as a tool:
+The engine is built on the **Nimble Search API** (`/v1/search`):
+
+- **Multi-angle search + a feedback loop** — 4–5 model-planned queries, then an assess step that names the coverage gap and fires a follow-up (~6 searches per dig)
+- **Domain targeting** — `include_domains` to hit Reddit, Trustpilot, Letterboxd, Yelp specifically
+- **Adaptive depth** — `search_depth: lite` drives the real-time path; `deep` full-page extraction is supported in the client
+- **Parallel + resilient** — `Promise.allSettled`, per-search timeouts; one failing angle never sinks the dig
+
+## Use it from your AI (MCP)
+
+hidden.reviews is a remote **MCP server** — add one URL and your assistant can pull the honest reviews it's otherwise blind to:
 
 ```json
 {
@@ -74,28 +85,30 @@ hidden.reviews is also a remote **MCP server**, so Claude / Cursor / ChatGPT can
 }
 ```
 
-Tool: `get_hidden_reviews(query)` → the honest, sourced verdict, formatted for an LLM.
+Tool: `get_hidden_reviews(query)` → the sourced verdict, formatted for an LLM.
 
 ## Stack
 
-- **Next.js 16** (App Router, Turbopack) · TypeScript · Tailwind v4
+- **Next.js 16** (App Router, Turbopack) · TypeScript · Tailwind v4 · Motion
 - **Nimble Search API** — live-web intelligence
-- **Claude Sonnet 4.6** — planning + structured synthesis (`messages.parse` + Zod)
+- **Claude** — planning, the assess loop, and structured synthesis (`messages.parse` + Zod)
 - **mcp-handler** — Streamable HTTP MCP server
 - Deployed on **Vercel**
 
-## Architecture
+## Project layout
 
 ```
-src/lib/agent/plan.ts      model plans the search angles (adaptive)
-src/lib/agent/gather.ts    runs the searches in parallel, dedupes
+src/lib/agent/plan.ts      Claude plans the search angles (adaptive per subject)
+src/lib/agent/gather.ts    runs the searches in parallel, dedupes by URL
 src/lib/agent/assess.ts    the feedback loop: finds the coverage gap, re-searches
-src/lib/agent/run.ts       orchestrates plan → search → assess → synth, emits trace
+src/lib/agent/run.ts       orchestrates plan → search → assess → synth, emits the trace
 src/lib/nimble/client.ts   configurable Nimble Search client
 src/lib/synth/claude.ts    structured, index-grounded synthesis
-src/lib/dig/               cache → seed → mock → live, + SSE streaming
+src/lib/rate-limit.ts      per-IP guard for cost-bearing live digs
+src/lib/dig/               cache → seed → mock → live resolution + SSE client
 src/app/api/dig/stream     Server-Sent Events endpoint (the live trace)
 src/app/api/mcp            remote MCP server
+src/components/            the Archive, dossiers, redaction reveals
 ```
 
 ## Run locally

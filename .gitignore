@@ -45,3 +45,8 @@ next-env.d.ts
 
 # OMC orchestration state
 .omc/
+
+# internal working docs + AI tooling config (kept local, not part of the product repo)
+docs/
+CLAUDE.md
+AGENTS.md

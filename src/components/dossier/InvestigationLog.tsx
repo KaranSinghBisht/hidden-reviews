@@ -70,7 +70,7 @@ export function InvestigationLog({
         </ol>
       )}
 
-      {hasStats && (
+      {!live && (
         <p className="mt-5 border-t border-line/60 pt-4 text-xs leading-relaxed text-faint">
           Every source is a live Nimble result — quotes are verbatim and linked to
           their page. Nothing here is generated.
