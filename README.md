@@ -2,6 +2,8 @@
 
 **Reviews are usually hidden. Not here.**
 
+![hidden.reviews — an AI investigator for the honest web](assets/cover.png)
+
 The top of every search result is polished, SEO-optimised marketing. The honest takes — the ones real people leave on Reddit, Trustpilot, niche forums, and long-form blogs — are buried pages deep, and asking an AI chatbot just summarises the same shiny surface. **hidden.reviews** is an AI research agent that digs them out: it sees the live web, reads the candid sources, and files an honest, fully-sourced verdict before you buy, book, or watch.
 
 🔗 **Live:** https://hidden-reviews.vercel.app · 🔌 **MCP server:** `https://hidden-reviews.vercel.app/api/mcp`
@@ -17,6 +19,12 @@ Search any product, place, company, restaurant, or movie. The agent files a **do
 - the **investigation log** — every search the agent ran, streamed live as it works
 
 Every investigation becomes a case in **The Archive** and lives at a shareable `/<slug>` URL.
+
+## Screens
+
+| The Archive | A filed dossier | A live investigation |
+|---|---|---|
+| ![The Archive — wall of case files](assets/archive.png) | ![Dossier cover — trust score, verdict, what they don't tell you](assets/dossier.png) | ![Live dig — real Nimble queries streaming](assets/live-dig.png) |
 
 ## How the agent works
 
